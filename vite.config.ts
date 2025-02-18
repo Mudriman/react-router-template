@@ -14,7 +14,10 @@ export default defineConfig({
   plugins: [reactRouter(), tsconfigPaths(), netlifyPlugin()],
   build: {
     rollupOptions: {
-      external: ['react-router-dom']
+      external: [
+                  'react-router-dom',
+                  '@heroicons/react/24/solid',
+                  '@heroicons/react/24/outline']
     }
   }
 });
