@@ -8,7 +8,11 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
-import stylesheet from "./app.css?url";
+import "./app.css";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Breadcrumbs from "./components/Breadcrumb";
+import BackToTop from "./components/BackToTop";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -21,7 +25,6 @@ export const links: Route.LinksFunction = () => [
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
-  { rel: "stylesheet", href: stylesheet },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -43,7 +46,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+      <div className="flex flex-col min-h-screen font-sans">
+        <Navbar /> {/* Навигация сверху */}
+        <Breadcrumbs/>
+        <main className="flex-grow">
+          <Outlet />
+        </main>
+        <BackToTop/>
+        <Footer /> {/* Футер всегда внизу */}
+      </div>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
