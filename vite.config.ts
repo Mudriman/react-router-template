@@ -12,4 +12,9 @@ export default defineConfig({
     },
   },
   plugins: [reactRouter(), tsconfigPaths(), netlifyPlugin()],
+  build: {
+    rollupOptions: {
+      external: ['react-router-dom']
+    }
+  }
 });
