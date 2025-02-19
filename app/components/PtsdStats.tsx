@@ -1,8 +1,8 @@
 const ptsdStats = [
   { number: "30%", text: "ветеранов сталкиваются с ПТСР", icon: "/alone_solder.jpg" },
   { number: "40%", text: "не обращаются за помощью", icon: "/zakat.jpg" },
-  { number: "3x", text: "выше риск депрессии", icon: "/solder.jpg" },
   { number: "60%", text: "испытывают проблемы со сном", icon: "/problem.jpeg" },
+  { number: "в 3 раза", text: "выше риск депрессии", icon: "/solder.jpg" },
 ];
 
 export default function PTSDStats() {
