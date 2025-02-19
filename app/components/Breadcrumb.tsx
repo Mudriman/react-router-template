@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router";
 import { HomeIcon } from "@heroicons/react/24/solid";
 
 const breadcrumbMap: Record<string, string> = {
@@ -21,13 +21,13 @@ const Breadcrumbs = () => {
       <ul className="flex items-center"> {/* Увеличили отступ слева */}
         {/* Домашняя иконка */}
         <li>
-          <Link 
+          <NavLink 
             to="/" 
             className="text-gray-400 hover:text-white transition-colors duration-200"
             aria-label="На главную"
           >
             <HomeIcon className="w-6 h-6" />
-          </Link>
+          </NavLink>
         </li>
         
         {pathnames.map((value, index) => {
@@ -55,12 +55,12 @@ const Breadcrumbs = () => {
               {isLast ? (
                 <span className="text-white font-medium">{label}</span>
               ) : (
-                <Link 
+                <NavLink 
                   to={to} 
                   className="text-gray-300 hover:text-white transition-colors duration-200"
                 >
                   {label}
-                </Link>
+                </NavLink>
               )}
             </li>
           );
