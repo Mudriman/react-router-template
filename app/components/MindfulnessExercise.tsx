@@ -1,5 +1,4 @@
 import React from "react";
-import Section from "~/components/Section";
 
 const MindfulnessExercise: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;

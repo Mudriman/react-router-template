@@ -1,6 +1,5 @@
 // app/components/PrivacyPolicyModal.tsx
 import { useEffect } from "react";
-import { XMarkIcon } from "@heroicons/react/24/solid"; // Импортируем иконку крестика
 
 interface PrivacyPolicyModalProps {
   isOpen: boolean;
@@ -38,7 +37,7 @@ export default function PrivacyPolicyModal({ isOpen, onClose }: PrivacyPolicyMod
             className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 focus:outline-none"
             aria-label="Закрыть"
           >
-            <XMarkIcon className="w-6 h-6" />
+            <span className="text-2xl">×</span>
           </button>
         </div>
         <div className="space-y-5 text-gray-700 dark:text-gray-300 leading-relaxed">

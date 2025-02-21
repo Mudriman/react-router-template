@@ -14,8 +14,5 @@ export default defineConfig({
   plugins: [reactRouter(), tsconfigPaths(), netlifyPlugin()],
   build: {
 
-  },
-  ssr: {
-    noExternal: ["@heroicons/react"], // Включаем Heroicons в SSR
-  },
+  }
 });
