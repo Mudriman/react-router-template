@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "~/components/Card";
+import MindfulnessExercise from "~/components/MindfulnessExercise";
 import Section from "~/components/Section";
 
 const Home: React.FC = () => {
-  
+  const [isExerciseOpen, setIsExerciseOpen] = useState(false);
 
   return (
     <div className="container mx-auto p-6">
@@ -37,6 +38,15 @@ const Home: React.FC = () => {
 
       {/* Интерактивные упражнения */}
       <Section title="Интерактивные упражнения">
+      <Card
+          title="Быстрая осознанность"
+          description="Выполните короткое упражнение для снятия напряжения и фокусировки."
+          buttonText="Начать"
+          buttonLink="#"
+          lightBgColor="bg-gray-300"
+          darkBgColor="dark:bg-gray-500"
+          onButtonClick={() => setIsExerciseOpen(true)}
+        />
         <Card
           title="Медитации"
           description="Практикуйте расслабление, чтобы уменьшить стресс и улучшить самочувствие."
@@ -52,6 +62,10 @@ const Home: React.FC = () => {
           buttonLink="#"
           lightBgColor="bg-gray-300"
           darkBgColor="dark:bg-gray-500"
+        />
+        <MindfulnessExercise 
+          isOpen={isExerciseOpen} 
+          onClose={() => setIsExerciseOpen(false)} 
         />
       </Section>
 

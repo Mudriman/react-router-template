@@ -12,7 +12,7 @@ export default function PTSDStats() {
       <div className="text-center mb-12">
         <h2 className="text-4xl font-extrabold text-gray-800">Почему это важно?</h2>
         <p className="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">
-          ПТСР влияет на тысячи ветеранов, усложняя их повседневную жизнь. 
+          ПТСР влияет на тысячи участников боевых действий, усложняя их повседневную жизнь. 
           Эти цифры показывают, с какими трудностями они сталкиваются каждый день.
         </p>
       </div>
