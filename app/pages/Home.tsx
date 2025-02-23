@@ -14,9 +14,9 @@ const Home: React.FC = () => {
           title="Тестирование"
           description="Пройдите тестирование чтобы получить представление о своей ситуации."
           buttonText="Пройти тест"
-          buttonLink="#"
+          buttonLink="prototype/test"
           lightBgColor="bg-gray-300"
-          darkBgColor="dark:bg-gray-900"
+          darkBgColor="dark:bg-gray-700"
         />
         <Card
           title="Инструменты для отслеживания настроения"
@@ -24,7 +24,7 @@ const Home: React.FC = () => {
           buttonText="Начать отслеживание"
           buttonLink="#"
           lightBgColor="bg-gray-300"
-          darkBgColor="dark:bg-gray-900"
+          darkBgColor="dark:bg-blue-950"
         />
         <Card
           title="Трекер прогресса"
@@ -32,7 +32,7 @@ const Home: React.FC = () => {
           buttonText="Следить за прогрессом"
           buttonLink="#"
           lightBgColor="bg-gray-300"
-          darkBgColor="dark:bg-gray-900"
+          darkBgColor="dark:bg-gray-700"
         />
       </Section>
 
@@ -44,16 +44,16 @@ const Home: React.FC = () => {
           buttonText="Начать"
           buttonLink="#"
           lightBgColor="bg-gray-300"
-          darkBgColor="dark:bg-gray-500"
+          darkBgColor="dark:bg-blue-950"
           onButtonClick={() => setIsExerciseOpen(true)}
         />
         <Card
           title="Медитации"
           description="Практикуйте расслабление, чтобы уменьшить стресс и улучшить самочувствие."
           buttonText="Попробовать"
-          buttonLink="#"
+          buttonLink="prototype/meditation"
           lightBgColor="bg-gray-300"
-          darkBgColor="dark:bg-gray-500"
+          darkBgColor="dark:bg-gray-700"
         />
         <Card
           title="Дыхательные упражнения"
@@ -61,7 +61,7 @@ const Home: React.FC = () => {
           buttonText="Начать упражнение"
           buttonLink="#"
           lightBgColor="bg-gray-300"
-          darkBgColor="dark:bg-gray-500"
+          darkBgColor="dark:bg-blue-950"
         />
         <MindfulnessExercise 
           isOpen={isExerciseOpen} 

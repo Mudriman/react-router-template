@@ -1,4 +1,4 @@
-import { type RouteConfig, index, route, layout } from "@react-router/dev/routes";
+import { type RouteConfig, index, route } from "@react-router/dev/routes";
 
 export default 
 [
@@ -7,5 +7,7 @@ export default
     route("feedback", "pages/FeedbackPage.tsx"),
     route("prototype", "pages/Home.tsx"),
     route("comand", "pages/Team.tsx"),
+    route("prototype/test", "pages/PTSDTest.tsx"),
+    route("prototype/meditation", "pages/MeditationPage.tsx"),
     
 ] satisfies RouteConfig;
