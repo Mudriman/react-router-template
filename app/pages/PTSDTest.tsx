@@ -43,9 +43,9 @@ const PTSDTest: React.FC = () => {
       <div className="max-w-4xl mx-auto">
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
           <Link
-            to="/"
+            to="/prototype"
             className="mb-6 flex items-center text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
-            aria-label="Вернуться на главную"
+            aria-label="Вернуться назад"
           >
             <svg
               className="w-6 h-6 mr-2"
@@ -61,7 +61,7 @@ const PTSDTest: React.FC = () => {
                 d="M15 19l-7-7 7-7"
               />
             </svg>
-            Вернуться на главную
+            Вернуться назад
           </Link>
           <h1 className="text-3xl font-semibold text-gray-900 dark:text-gray-100 mb-6">
             Тест на признаки ПТСР (Демо)

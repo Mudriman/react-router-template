@@ -1,3 +1,6 @@
+import React from "react";
+import { Link } from "react-router"; // Импортируем Link из react-router-dom
+
 interface CardProps {
   title: string;
   description: string;
@@ -30,13 +33,13 @@ const Card: React.FC<CardProps> = ({
     >
       <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">{title}</h3>
       <p className="text-gray-700 dark:text-gray-300 text-base leading-relaxed mb-6">{description}</p>
-      <a
-        href={buttonLink}
+      <Link
+        to={buttonLink}
         onClick={handleClick}
         className="inline-block bg-blue-500 dark:bg-blue-600 text-white dark:text-gray-100 px-6 py-3 rounded-lg font-medium shadow-md hover:bg-blue-600 dark:hover:bg-blue-800 hover:shadow-lg transition-all duration-200"
       >
         {buttonText}
-      </a>
+      </Link>
     </div>
   );
 };

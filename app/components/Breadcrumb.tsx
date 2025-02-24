@@ -1,4 +1,3 @@
-import React from "react";
 import { useLocation, NavLink } from "react-router";
 import { HomeIcon } from "@heroicons/react/24/solid";
 

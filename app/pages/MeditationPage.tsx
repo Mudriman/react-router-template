@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router";
 
 const MeditationPage: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState(300); // 5 минут в секундах (300 секунд)
@@ -28,10 +28,6 @@ const MeditationPage: React.FC = () => {
     setTimeLeft(300); // Сброс таймера на 5 минут
   };
 
-  const handleBack = () => {
-    navigate(-1); // Возвращаемся назад
-  };
-
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -42,8 +38,8 @@ const MeditationPage: React.FC = () => {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-700 p-6">
       <div className="max-w-6xl mx-auto">
         <div className="bg-gray-100 dark:bg-gray-800 rounded-xl shadow-lg p-8">
-          <button
-            onClick={handleBack}
+          <Link
+            to="/prototype"
             className="mb-6 flex items-center text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
             aria-label="Вернуться назад"
           >
@@ -62,7 +58,7 @@ const MeditationPage: React.FC = () => {
               />
             </svg>
             Вернуться назад
-          </button>
+          </Link>
           <h1 className="text-3xl font-semibold text-gray-900 dark:text-gray-100 mb-6">
             Медитация
           </h1>
