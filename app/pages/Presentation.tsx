@@ -45,7 +45,7 @@ const PresentationPage: React.FC = () => {
                     {[
                         { question: "Как я могу получить помощь?", answer: "Заполните анкету на сайте, и наш специалист свяжется с вами." },
                         { question: "Могу ли я помочь проекту?", answer: "Да! Вы можете стать волонтером или поддержать нас финансово." },
-                        { question: "Кто может участвовать?", answer: "Все ветераны, испытывающие психологические трудности, могут обратиться к нам." }
+                        { question: "Кто может участвовать?", answer: "Все участники боевых действий, испытывающие психологические трудности, могут обратиться к нам." }
                     ].map((faq, index) => (
                         <details key={index} className="bg-white p-4 rounded-lg shadow-md mb-4 border border-gray-200">
                             <summary className="font-semibold cursor-pointer">{faq.question}</summary>

@@ -12,7 +12,7 @@ import "./app.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Breadcrumbs from "./components/Breadcrumb";
-import BackToTop from "./components/BackToTop";
+import BackToTop from "./components/UI/BackToTop";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },

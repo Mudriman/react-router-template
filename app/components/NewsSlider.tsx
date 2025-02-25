@@ -4,7 +4,7 @@ const newsData = [
   {
     id: 1,
     title: "Запуск проекта \"Шаг к жизни\"",
-    text: "Наш сервис официально запущен! Мы начинаем поддержку ветеранов, страдающих ПТСР, через персонализированные программы помощи и онлайн-консультации.",
+    text: "Наш сервис официально запущен! Мы начинаем поддержку участников боевых действий, страдающих ПТСР, через персонализированные программы помощи и онлайн-консультации.",
     image: "/test.jpg",
     date: "20.02.2025"
   }
@@ -40,7 +40,7 @@ const NewsSlider: React.FC = () => {
       {/* Telegram ссылка */}
       <div className="mt-6 text-center">
         <a
-          href="https://t.me/cyclone2022"
+          href="https://t.me/shagjizni2025"
           className="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 transition"
           target="_blank"
           rel="noopener noreferrer"

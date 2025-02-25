@@ -27,7 +27,13 @@ const specialists = [
     name: "Всеволод Должанов",
     role: "Врач-невролог",
     img: "dmitry_doctor.jpg",
-    text: "ФГБУ ВО 'Воронежский Государственный Медицинский Университет им. Н. Н. Бурденко' МЗ России, кафедра микробиологии. Моя цель – поддержка ветеранов в процессе их реабилитации."
+    text: "ФГБУ ВО 'Воронежский Государственный Медицинский Университет им. Н. Н. Бурденко' МЗ России. Моя цель – поддержка ветеранов в процессе их реабилитации."
+  },
+  {
+    name: "Латынцева Алла",
+    role: " Медицинский психолог",
+    img: "psiholog_logo.jpg",
+    text: "КУЗ ВО «ВОКПНД», медицинский психолог патопсихологической лаборатории, высшей квалификационной категории, являюсь аккредитованным специалистом."
   }
 ];
 
@@ -113,7 +119,7 @@ const Team = () => {
           <a href="mailto:support@project.com" className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition">
             Написать на Email
           </a>
-          <a href="https://t.me/cyclone2022" className="bg-gray-800 text-white px-6 py-3 rounded-lg shadow-md hover:bg-gray-900 transition">
+          <a href="https://t.me/shagjizni2025" className="bg-gray-800 text-white px-6 py-3 rounded-lg shadow-md hover:bg-gray-900 transition">
             Наш Telegram
           </a>
         </div>

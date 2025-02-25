@@ -35,7 +35,7 @@ const MeditationPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-700 p-6">
+    <div className="p-6">
       <div className="max-w-6xl mx-auto">
         <div className="bg-gray-100 dark:bg-gray-800 rounded-xl shadow-lg p-8">
           <Link
