@@ -49,7 +49,7 @@ const InteractiveExercises: React.FC = () => {
           title="Инструменты для отслеживания настроения"
           description="Отслеживайте свое настроение с течением времени, чтобы выявлять закономерности и триггеры."
           buttonText="Начать отслеживание"
-          buttonLink="#"
+          buttonLink="/prototype/psinstrument"
           lightBgColor="bg-gray-300"
           darkBgColor="dark:bg-blue-950"
         />

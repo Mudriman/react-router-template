@@ -8,7 +8,6 @@ interface PrivacyPolicyModalProps {
 
 export default function PrivacyPolicyModal({ isOpen, onClose }: PrivacyPolicyModalProps) {
   useEffect(() => {
-    console.log("PrivacyPolicyModal mounted, isOpen:", isOpen);
     // Закрытие по нажатию Esc
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();

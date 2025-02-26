@@ -7,6 +7,7 @@ const breadcrumbMap: Record<string, string> = {
   feedback: "Обратная связь",
   test: "Тестирование",
   meditation: "Медитации",
+  psinstrument: "Персональный дневник",
 };
 
 const Breadcrumbs = () => {

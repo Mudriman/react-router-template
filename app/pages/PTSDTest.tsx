@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
-import TestQuestions from "~/components/UI/TestQuestions";
-import TestResults from "~/components/UI/TestResults";
-import TestSelector from "~/components/UI/TestSelector";
+import TestQuestions from "~/components/UI/test/TestQuestions";
+import TestResults from "~/components/UI/test/TestResults";
+import TestSelector from "~/components/UI/test/TestSelector";
 import { tests } from "~/tests/testConfig";
 
 const PTSDTest: React.FC = () => {

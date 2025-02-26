@@ -12,11 +12,14 @@
     "@heroicons/react": "^2.2.0",
     "@react-router/node": "^7.0.2",
     "@react-router/serve": "^7.0.2",
+    "@types/recharts": "^1.8.29",
     "isbot": "^5.1.17",
     "lucide-react": "^0.475.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router": "^7.0.2"
+    "react-router": "^7.0.2",
+    "react-toastify": "^11.0.5",
+    "recharts": "^2.15.1"
   },
   "devDependencies": {
     "@netlify/vite-plugin-react-router": "^0.0.0",
