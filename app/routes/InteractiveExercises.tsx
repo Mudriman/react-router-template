@@ -1,84 +1,107 @@
-import React, { useState } from "react";
-import Card from "~/components/Card";
-import Section from "~/components/Section";
-import BreathingExerciseModal from "~/components/BreathingExerciseModal";
-import MindfulnessExercise from "~/components/MindfulnessExercise";
+import React from "react";
+import Section from "~/components/UI/Section";
+import Card from "~/components/global/Card";
+
+// Данные для карточек в виде массива
+const exerciseCards = [
+  {
+    title: "Быстрая осознанность",
+    description: "Короткое упражнение для снятия напряжения и фокусировки.",
+    buttonText: "Начать",
+    buttonLink: "/prototype/mindfulex",
+    lightBgColor: "bg-gray-50",
+    darkBgColor: "dark:bg-gray-900",
+  },
+  {
+    title: "Медитации",
+    description: "Практикуйте расслабление для снижения стресса и улучшения самочувствия.",
+    buttonText: "Попробовать",
+    buttonLink: "/prototype/meditation",
+    lightBgColor: "bg-blue-50",
+    darkBgColor: "dark:bg-blue-950",
+  },
+  {
+    title: "Дыхательные упражнения",
+    description: "Успокойте ум и тело с помощью дыхательных техник.",
+    buttonText: "Начать упражнение",
+    buttonLink: "/prototype/breathing",
+    lightBgColor: "bg-gray-100",
+    darkBgColor: "dark:bg-gray-900",
+  },
+  {
+    title: "Тестирование",
+    description: "Пройдите тест, чтобы оценить своё состояние.",
+    buttonText: "Пройти тест",
+    buttonLink: "/prototype/test",
+    lightBgColor: "bg-gray-200",
+    darkBgColor: "dark:bg-gray-700",
+  },
+  {
+    title: "Отслеживание настроения",
+    description: "Следите за настроением, чтобы выявлять закономерности.",
+    buttonText: "Начать отслеживание",
+    buttonLink: "/prototype/psinstrument",
+    lightBgColor: "bg-gray-200",
+    darkBgColor: "dark:bg-blue-950",
+  },
+  {
+    title: "Трекер прогресса",
+    description: "Отслеживайте прогресс терапии с персонализированными инструментами.",
+    buttonText: "Следить за прогрессом",
+    buttonLink: "#",
+    lightBgColor: "bg-gray-200",
+    darkBgColor: "dark:bg-gray-700",
+  },
+];
+
+const literatureLinks = [
+  {
+    text: "Понимание когнитивно-поведенческой терапии",
+    href: "https://mip-institute-ng8gxwz5x-ipe.vercel.app/journal/chto-takoe-kognitivno-povedencheskaya-terapiya-i-kak-ona-rabotaet",
+  },
+  {
+    text: "Преимущества осознанности в терапии",
+    href: "https://translated.turbopages.org/proxy_u/en-ru.ru.a7c7d067-67bf675f-9b081d08-74722d776562/https/www.verywellmind.com/mindfulness-based-cognitive-therapy-1067396",
+  },
+  {
+    text: "Эффективные методы управления стрессом",
+    href: "https://psy.su/pubs/10830/?ysclid=m7majwcieh469255703",
+  },
+];
 
 const InteractiveExercises: React.FC = () => {
-  const [isExerciseOpen, setIsExerciseOpen] = useState(false);
-  const [isBreathingOpen, setIsBreathingOpen] = useState(false);
-
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
       <Section title="Интерактивные упражнения">
-        <Card
-          title="Быстрая осознанность"
-          description="Выполните короткое упражнение для снятия напряжения и фокусировки."
-          buttonText="Начать"
-          buttonLink="#"
-          lightBgColor="bg-gray-50"
-          darkBgColor="dark:bg-gray-900"
-          onButtonClick={() => setIsExerciseOpen(true)}
-        />
-        <Card
-          title="Медитации"
-          description="Практикуйте расслабление, чтобы уменьшить стресс и улучшить самочувствие."
-          buttonText="Попробовать"
-          buttonLink="/prototype/meditation"
-          lightBgColor="bg-blue-50"
-          darkBgColor="dark:bg-blue-950"
-        />
-        <Card
-          title="Дыхательные упражнения"
-          description="Изучите дыхательные упражнения, чтобы успокоить свой ум и тело."
-          buttonText="Начать упражнение"
-          buttonLink="#"
-          lightBgColor="bg-gray-100"
-          darkBgColor="dark:bg-gray-900"
-          onButtonClick={() => setIsBreathingOpen(true)}
-        />
-        <Card
-          title="Тестирование"
-          description="Пройдите тестирование чтобы получить представление о своей ситуации."
-          buttonText="Пройти тест"
-          buttonLink="/prototype/test"
-          lightBgColor="bg-gray-300"
-          darkBgColor="dark:bg-gray-700"
-        />
-        <Card
-          title="Инструменты для отслеживания настроения"
-          description="Отслеживайте свое настроение с течением времени, чтобы выявлять закономерности и триггеры."
-          buttonText="Начать отслеживание"
-          buttonLink="/prototype/psinstrument"
-          lightBgColor="bg-gray-300"
-          darkBgColor="dark:bg-blue-950"
-        />
-        <Card
-          title="Трекер прогресса"
-          description="Следите за ходом вашей терапии с помощью персонализированных трекеров."
-          buttonText="Следить за прогрессом"
-          buttonLink="#"
-          lightBgColor="bg-gray-300"
-          darkBgColor="dark:bg-gray-700"
-        />
-        <MindfulnessExercise
-          isOpen={isExerciseOpen}
-          onClose={() => setIsExerciseOpen(false)}
-        />
-        <BreathingExerciseModal
-          isOpen={isBreathingOpen}
-          onClose={() => setIsBreathingOpen(false)}
-        />
+        {exerciseCards.map((card, index) => (
+          <Card
+            key={index}
+            title={card.title}
+            description={card.description}
+            buttonText={card.buttonText}
+            buttonLink={card.buttonLink}
+            lightBgColor={card.lightBgColor}
+            darkBgColor={card.darkBgColor}
+          />
+        ))}
       </Section>
       <Section title="Вспомогательная литература">
-        <ul className="text-blue-500">
-          <li><a href="#">Понимание когнитивно-поведенческой терапии</a></li>
-          <li><a href="#">Преимущества осознанности в терапии</a></li>
-          <li><a href="#">Эффективные методы управления стрессом</a></li>
+        <ul className="space-y-2 col-span-full">
+          {literatureLinks.map((link, index) => (
+            <li key={index}>
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 dark:text-blue-400 no-underline hover:text-blue-600 dark:hover:text-blue-300 underline hover:underline-offset-4 transition-colors duration-200"
+              >
+                {link.text}
+              </a>
+            </li>
+          ))}
         </ul>
       </Section>
     </div>
-
   );
 };
 

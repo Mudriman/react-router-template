@@ -16,9 +16,9 @@ const Recommendation: React.FC<RecommendationProps> = ({ mood }) => {
   };
 
   return (
-    <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md">
-      <h2 className="text-lg font-semibold text-gray-900 mb-4">Рекомендация</h2>
-      <p className="text-gray-700">{getMoodRecommendation(mood)}</p>
+    <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-lg shadow-md">
+      <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Рекомендация</h2>
+      <p className="text-gray-700 dark:text-gray-300">{getMoodRecommendation(mood)}</p>
     </div>
   );
 };

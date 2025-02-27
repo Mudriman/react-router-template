@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router";
-import TestQuestions from "~/components/UI/test/TestQuestions";
-import TestResults from "~/components/UI/test/TestResults";
-import TestSelector from "~/components/UI/test/TestSelector";
+import BackLink from "~/components/UI/BackLink";
+import TestQuestions from "~/components/test/TestQuestions";
+import TestResults from "~/components/test/TestResults";
+import TestSelector from "~/components/test/TestSelector";
 import { tests } from "~/tests/testConfig";
 
 const PTSDTest: React.FC = () => {
@@ -49,45 +49,27 @@ const PTSDTest: React.FC = () => {
   const progress = ((answers[activeTest].filter((a) => a >= 0 || (activeTest === "bassDarki" && a >= 1)).length / currentTest.questions.length) * 100).toFixed(0);
 
   return (
-    <div className="p-4 md:p-6">
+    <div className="p-4 md:p-6 bg-gray-100 dark:bg-gray-100">
       <div className="max-w-6xl mx-auto">
-        <div className="bg-gray-800 rounded-xl shadow-lg p-6 md:p-8 text-white">
-          <Link
-            to="/prototype"
-            className="mb-6 flex items-center text-gray-400 hover:text-gray-200 p-2 rounded-full hover:bg-gray-700 transition-colors duration-200"
-            aria-label="Вернуться назад"
-          >
-            <svg
-              className="w-6 h-6 mr-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-            Вернуться назад
-          </Link>
-          <h1 className="text-3xl font-semibold mb-6 animate-fadeIn">{currentTest.title}</h1>
-          <p className="text-gray-400 text-base leading-relaxed mb-8">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 md:p-8 text-gray-900 dark:text-white">
+          <h1 className="text-3xl font-semibold mb-6 text-gray-900 dark:text-gray-100 animate-fadeIn">
+            {currentTest.title}
+          </h1>
+          <BackLink to="/prototype" />
+          <p className="text-gray-700 dark:text-gray-400 text-base leading-relaxed mb-8">
             Ответьте на вопросы, чтобы получить предварительную оценку. Это пробная версия.
           </p>
 
           <TestSelector activeTest={activeTest} onTestChange={setActiveTest} submitted={submitted} />
 
           <div className="mb-8">
-            <div className="w-full bg-gray-700 h-4 rounded-full overflow-hidden mb-2">
+            <div className="w-full bg-gray-200 dark:bg-gray-700 h-4 rounded-full overflow-hidden mb-2">
               <div
-                className="bg-blue-600 h-4 rounded-full transition-all duration-500 ease-out"
+                className="bg-blue-500 dark:bg-blue-600 h-4 rounded-full transition-all duration-500 ease-out"
                 style={{ width: `${progress}%` }}
               ></div>
             </div>
-            <p className="text-gray-400 text-sm font-medium">
+            <p className="text-gray-600 dark:text-gray-400 text-sm font-medium">
               Прогресс: {progress}%
             </p>
           </div>
@@ -98,7 +80,7 @@ const PTSDTest: React.FC = () => {
               <div className="mt-10">
                 <button
                   onClick={handleSubmit}
-                  className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-medium shadow-md hover:bg-blue-700 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-blue-500 dark:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium shadow-md hover:bg-blue-600 dark:hover:bg-blue-700 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   Завершить тест
                 </button>

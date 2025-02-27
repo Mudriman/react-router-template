@@ -1,11 +1,8 @@
 import React from "react";
-import HowItWorks from "~/components/HowItWorks";
-import NewsSlider from "~/components/NewsSlider";
-import PTSDStats from "~/components/PtsdStats";
-import HeroSection from "~/components/HeroSection";
-import Breadcrumbs from "~/components/Breadcrumb";
-
-
+import HowItWorks from "~/components/presentation/HowItWorks";
+import NewsSlider from "~/components/presentation/NewsSlider";
+import PTSDStats from "~/components/presentation/PtsdStats";
+import HeroSection from "~/components/presentation/HeroSection";
 
 const PresentationPage: React.FC = () => {
 

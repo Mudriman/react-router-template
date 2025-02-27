@@ -16,9 +16,11 @@ const TestQuestions: React.FC<TestQuestionsProps> = ({ test, answers, onAnswer }
       {test.questions.map((question: { id: number; text: string }) => (
         <div
           key={question.id}
-          className="p-4 md:p-6 bg-gray-800 rounded-xl shadow-md text-white transition-all duration-200 hover:shadow-lg"
+          className="p-4 md:p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md text-gray-900 dark:text-white transition-all duration-200 hover:shadow-lg"
         >
-          <p className="text-base md:text-lg font-medium mb-4 line-clamp-2">{question.text}</p>
+          <p className="text-base md:text-lg font-medium mb-4 line-clamp-2 text-gray-900 dark:text-gray-100">
+            {question.text}
+          </p>
           <div className={`grid ${gridCols} gap-2 md:gap-3`}>
             {test.options.map((value: number) => (
               <button
@@ -27,8 +29,8 @@ const TestQuestions: React.FC<TestQuestionsProps> = ({ test, answers, onAnswer }
                 onClick={() => onAnswer(question.id, value)}
                 className={`w-full py-2 md:py-3 px-3 md:px-4 rounded-lg font-medium transition-all duration-200 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                   answers[question.id] === value
-                    ? "bg-blue-600 text-white hover:bg-blue-700"
-                    : "bg-gray-700 text-gray-200 hover:bg-gray-600"
+                    ? "bg-blue-500 dark:bg-blue-600 text-white hover:bg-blue-600 dark:hover:bg-blue-700"
+                    : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600"
                 }`}
               >
                 {value === 1

@@ -8,13 +8,14 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
-import "./app.css";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import Breadcrumbs from "./components/Breadcrumb";
-import BackToTop from "./components/UI/BackToTop";
+import styles from "./app.css?url";
+import Navbar from "./components/global/Navbar";
+import Footer from "./components/global/Footer";
+import Breadcrumbs from "./components/global/Breadcrumb";
+import BackToTop from "./components/global/BackToTop";
 
 export const links: Route.LinksFunction = () => [
+  { rel: "stylesheet", href: styles },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
     rel: "preconnect",

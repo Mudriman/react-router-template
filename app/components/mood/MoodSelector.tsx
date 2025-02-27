@@ -1,3 +1,4 @@
+// MoodSelector.tsx
 import React from 'react';
 import MoodButton from './MoodButton';
 
@@ -8,8 +9,10 @@ interface MoodSelectorProps {
 
 const MoodSelector: React.FC<MoodSelectorProps> = ({ mood, onMoodChange }) => {
   return (
-    <div className="mb-8 bg-white p-4 sm:p-6 rounded-lg shadow-md">
-      <h2 className="text-lg font-semibold text-gray-900 mb-4">Как вы себя чувствуете сегодня?</h2>
+    <div className="mb-8 bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-lg shadow-md">
+      <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+        Как вы себя чувствуете сегодня?
+      </h2>
       <div className="flex flex-col sm:flex-row gap-4">
         <MoodButton
           label="Хорошо 😊"
