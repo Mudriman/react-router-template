@@ -1,6 +1,6 @@
 import React from "react";
-import Section from "~/components/UI/Section";
-import Card from "~/components/global/Card";
+import Card from "~/shared/UI/Card";
+import Section from "~/shared/UI/Section";
 
 // Данные для карточек в виде массива
 const exerciseCards = [

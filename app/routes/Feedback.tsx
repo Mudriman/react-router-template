@@ -1,5 +1,5 @@
 import { useState } from "react";
-import BackLink from "~/components/UI/BackLink";
+import BackLink from "~/shared/UI/BackLink";
 
 export default function FeedbackPage() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });

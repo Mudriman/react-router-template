@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import BackLink from "~/components/UI/BackLink";
+import BackLink from "~/shared/UI/BackLink";
 
 export default function BreathingExercisePage() {
   const [isExercising, setIsExercising] = useState(false);

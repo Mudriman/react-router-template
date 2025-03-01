@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import BackLink from "~/components/UI/BackLink";
-import TestQuestions from "~/components/test/TestQuestions";
-import TestResults from "~/components/test/TestResults";
-import TestSelector from "~/components/test/TestSelector";
-import { tests } from "~/tests/testConfig";
+import { tests } from "~/features/test/model/testConfig";
+import TestQuestions from "~/features/test/ui/TestQuestions";
+import TestResults from "~/features/test/ui/TestResults";
+import TestSelector from "~/features/test/ui/TestSelector";
+import BackLink from "~/shared/UI/BackLink";
 
 const PTSDTest: React.FC = () => {
   const [activeTest, setActiveTest] = useState("ptsd");

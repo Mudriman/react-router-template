@@ -1,5 +1,5 @@
 import { NavLink } from "react-router";
-import BackLink from "~/components/UI/BackLink";
+import BackLink from "~/shared/UI/BackLink";
 
 export default function MindfulnessExercisePage() {
   return (

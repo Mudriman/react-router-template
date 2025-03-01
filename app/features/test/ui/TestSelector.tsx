@@ -1,5 +1,5 @@
 import React from "react";
-import { tests } from "~/tests/testConfig";
+import { tests } from "~/features/test/model/testConfig";
 
 interface TestSelectorProps {
   activeTest: string;

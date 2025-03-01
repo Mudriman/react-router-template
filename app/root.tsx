@@ -9,10 +9,10 @@ import {
 
 import type { Route } from "./+types/root";
 import styles from "./app.css?url";
-import Navbar from "./components/global/Navbar";
-import Footer from "./components/global/Footer";
-import Breadcrumbs from "./components/global/Breadcrumb";
-import BackToTop from "./components/global/BackToTop";
+import Navbar from "./shared/global/Navbar";
+import Breadcrumbs from "./shared/global/Breadcrumb";
+import BackToTop from "./shared/global/BackToTop";
+import Footer from "./shared/global/Footer";
 
 export const links: Route.LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -49,13 +49,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
       <div className="flex flex-col min-h-screen font-sans">
-        <Navbar /> {/* Навигация сверху */}
+        <Navbar />
         <Breadcrumbs/>
         <main className="flex-grow">
           <Outlet />
         </main>
         <BackToTop/>
-        <Footer /> {/* Футер всегда внизу */}
+        <Footer />
       </div>
   );
 }

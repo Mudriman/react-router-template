@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import BackLink from "~/components/UI/BackLink";
-import Header from "~/components/UI/Header";
-import MoodSelector from "~/components/mood/MoodSelector";
-import MoodStats from "~/components/mood/stats/MoodStats";
-import RelaxTechniques from "~/components/mood/relaxation/RelaxTechniques";
-import Recommendation from "~/components/mood/reccomendation/Recommendation";
-import NotesList from "~/components/mood/diary/NoteList";
+import { useState } from "react";
+import MoodSelector from "~/features/mood/ui/MoodSelector";
+import MoodStats from "~/features/mood/ui/MoodStats";
+import NotesList from "~/features/mood/ui/NoteList";
+import Recommendation from "~/features/mood/ui/Recommendation";
+import RelaxTechniques from "~/features/mood/ui/RelaxTechniques";
+import BackLink from "~/shared/UI/BackLink";
+import Header from "~/shared/UI/Header";
 
 // Типы для данных
 interface MoodData {

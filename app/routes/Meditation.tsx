@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router";
-import BackLink from "~/components/UI/BackLink";
+import { useNavigate} from "react-router";
+import BackLink from "~/shared/UI/BackLink";
 
 const MeditationPage: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState(300); // 5 минут в секундах (300 секунд)
