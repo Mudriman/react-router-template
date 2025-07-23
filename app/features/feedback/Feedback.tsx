@@ -1,17 +1,56 @@
 import { useState } from "react";
 import BackLink from "~/shared/UI/BackLink";
+import { useNavigate } from "react-router";
+
+
+export interface FeedbackForm {
+  name: string;
+  email: string;
+  message: string;
+}
+
+export interface ApiFeedbackRequest {
+  email: string;
+  message: string;
+}
 
 export default function FeedbackPage() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Feedback submitted:", form);
-    // Здесь можно добавить отправку данных на сервер через fetch, если нужно
+    setIsLoading(true);
+    setError("");
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/feedback`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: form.email,
+          message: `${form.name} пишет: ${form.message}` // Добавляем имя в сообщение
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Ошибка отправки");
+      }
+
+      navigate("/feedback-success"); // Перенаправляем на страницу успеха
+    } catch (err: any) {
+      setError(err.message || "Произошла ошибка");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -22,6 +61,12 @@ export default function FeedbackPage() {
             <h1 className="text-3xl font-bold text-gray-100">Обратная связь</h1>
             <BackLink to="/" />
           </header>
+
+          {error && (
+            <div className="mb-4 p-3 bg-red-500/20 text-red-300 rounded-lg">
+              {error}
+            </div>
+          )}
 
           <main>
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -57,12 +102,13 @@ export default function FeedbackPage() {
                   className="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-y"
                 />
               </div>
-
               <button
                 type="submit"
-                className="w-full p-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-gray-800 transition-colors"
+                disabled={isLoading}
+                className={`w-full p-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors ${isLoading ? "opacity-70 cursor-not-allowed" : ""
+                  }`}
               >
-                Отправить
+                {isLoading ? "Отправка..." : "Отправить"}
               </button>
             </form>
           </main>

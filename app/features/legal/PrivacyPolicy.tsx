@@ -54,7 +54,7 @@ export default function PrivacyPolicyPage() {
                   href="mailto:support@example.com"
                   className="text-blue-400 hover:underline"
                 >
-                  support@example.com
+                  sagkzizni@gmail.com
                 </a>.
               </p>
             </section>

@@ -1,24 +1,28 @@
-import { type RouteConfig, index, route, layout } from "@react-router/dev/routes";
+import { type RouteConfig, index, route } from "@react-router/dev/routes";
 
 export default
   [
-    index("pages/Presentation.tsx"),
+    index("features/presentation/Presentation.tsx"),
 
-    route("feedback", "routes/Feedback.tsx"),
-    route("comand", "pages/Team.tsx"),
-    route("privacy", "routes/PrivacyPolicy.tsx"),
-    route("ptsd_info", "routes/PTSDInfo.tsx"),
+    route("feedback", "features/feedback/Feedback.tsx"),
+    route("feedback-success", "features/feedback/FeedbackSuccess.tsx"),
+    route("comand", "features/team/Team.tsx"),
+    route("privacy", "features/legal/PrivacyPolicy.tsx"),
+    route("ptsd_info", "features/ptsd/PTSDInfo.tsx"),
+
+    route("login", "features/auth/Login.tsx"),
+    route("register", "features/auth/Register.tsx"),
+    route("forgot_password", "features/auth/ForgotPassword.tsx"),
+    route("reset_password", "features/auth/ResetPassword.tsx"),
 
 
 
-
-    route("prototype", "pages/Home.tsx", [
-      index("routes/InteractiveExercises.tsx"),
-      route("test", "routes/PTSDTest.tsx"),
-      route("meditation", "routes/Meditation.tsx"),
-      route("psinstrument", "routes/MoodTracker.tsx"),
-      route("mindfulex", "routes/MindfulnessExercise.tsx"),
-      route("breathing", "routes/BreathingExercise.tsx"),
+    route("prototype", "features/routes/ProtectedLayout.tsx", [
+      index("features/exercises/InteractiveExercises.tsx"),
+      route("test", "features/ptsd/PTSDTest.tsx"),
+      route("meditation", "features/exercises/Meditation.tsx"),
+      route("mindfulex", "features/exercises/MindfulnessExercise.tsx"),
+      route("breathing", "features/exercises/BreathingExercise.tsx"),
     ]),
 
 

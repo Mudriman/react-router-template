@@ -108,7 +108,7 @@ const Team = () => {
           ))}
         </div>
       </div>
-
+      
       {/* Контакты */}
       <div className="mt-10 max-w-5xl text-center">
         <h2 className="text-3xl font-bold text-gray-800">Как с нами связаться?</h2>
@@ -116,7 +116,7 @@ const Team = () => {
           Мы всегда открыты к сотрудничеству. Если у вас есть вопросы или предложения, пишите нам!
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-6 mt-6">
-          <a href="mailto:support@project.com" className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition">
+          <a href="mailto:sagkzizni@gmail.com" className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition">
             Написать на Email
           </a>
           <a href="https://t.me/shagjizni2025" className="bg-gray-800 text-white px-6 py-3 rounded-lg shadow-md hover:bg-gray-900 transition">

@@ -30,7 +30,7 @@ export const links: Route.LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="ru">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -48,15 +48,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-      <div className="flex flex-col min-h-screen font-sans">
+    <div className="flex flex-col min-h-screen font-sans">
         <Navbar />
-        <Breadcrumbs/>
+        <Breadcrumbs />
         <main className="flex-grow">
           <Outlet />
         </main>
-        <BackToTop/>
-        <Footer />
-      </div>
+        <BackToTop />
+        <Footer />    
+    </div>
   );
 }
 

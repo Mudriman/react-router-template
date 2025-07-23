@@ -1,8 +1,9 @@
 import React from "react";
 import Card from "~/shared/UI/Card";
 import Section from "~/shared/UI/Section";
+import { useToken } from "../../shared/hooks/useToken";
+import { useNavigate } from "react-router";
 
-// Данные для карточек в виде массива
 const exerciseCards = [
   {
     title: "Быстрая осознанность",
@@ -36,22 +37,6 @@ const exerciseCards = [
     lightBgColor: "bg-gray-200",
     darkBgColor: "dark:bg-gray-700",
   },
-  {
-    title: "Отслеживание настроения",
-    description: "Следите за настроением, чтобы выявлять закономерности.",
-    buttonText: "Начать отслеживание",
-    buttonLink: "/prototype/psinstrument",
-    lightBgColor: "bg-gray-200",
-    darkBgColor: "dark:bg-blue-950",
-  },
-  {
-    title: "Трекер прогресса",
-    description: "Отслеживайте прогресс терапии с персонализированными инструментами.",
-    buttonText: "Следить за прогрессом",
-    buttonLink: "#",
-    lightBgColor: "bg-gray-200",
-    darkBgColor: "dark:bg-gray-700",
-  },
 ];
 
 const literatureLinks = [
@@ -70,8 +55,17 @@ const literatureLinks = [
 ];
 
 const InteractiveExercises: React.FC = () => {
+  
+  const { removeToken } = useToken();
+  const navigate = useNavigate();
+
+   const handleLogout = () => {
+    removeToken();
+    navigate("/login");
+  };
+
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-2">
       <Section title="Интерактивные упражнения">
         {exerciseCards.map((card, index) => (
           <Card
@@ -101,6 +95,12 @@ const InteractiveExercises: React.FC = () => {
           ))}
         </ul>
       </Section>
+       <button
+        onClick={handleLogout}
+        className="bottom-4 left-16 flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-xl shadow-md transition-colors duration-200"
+      >
+        Выйти
+      </button>
     </div>
   );
 };

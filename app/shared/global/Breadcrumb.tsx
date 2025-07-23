@@ -11,7 +11,11 @@ const breadcrumbMap: Record<string, string> = {
   privacy: "Политика безопасности",
   mindfulex: "Быстрая осознанность",
   breathing:"Дыхательные упражнения",
-  ptsd_info:"Информационная страница"
+  ptsd_info:"Информационная страница",
+  login:"Авторизация",
+  register:"Авторизация",
+  forgot_password:"Восстановление пароля",
+  reset_password:"Смена пароля",
 };
 
 const Breadcrumbs = () => {

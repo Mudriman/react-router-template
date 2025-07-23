@@ -61,7 +61,7 @@ export default function NewsSlider() {
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <p className="text-xs sm:text-sm text-gray-500">{news.date}</p>
                 <a
-                  href="https://t.me/shagjizni2025"
+                  href={process.env.VITE_TG_CHANNEL}
                   className="inline-flex items-center px-4 py-2 sm:px-5 sm:py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 text-sm sm:text-base shadow-md"
                   target="_blank"
                   rel="noopener noreferrer"

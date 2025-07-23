@@ -1,10 +1,7 @@
-import React from "react";
-import { useLocation } from "react-router";
 import NavLinks from "./NavLinks";
 import BurgerMenu from "./BurgerMenu";
 
-const Navbar: React.FC = () => {
-  const location = useLocation();
+const Navbar = () => {
 
   return (
     <nav className="bg-gray-300 dark:bg-gray-800 shadow-sm border-b border-gray-200/50">
