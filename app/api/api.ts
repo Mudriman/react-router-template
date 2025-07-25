@@ -2,9 +2,9 @@ import axios from "axios";
 import type { User } from '../shared/types';
 import { useAuthStore } from "~/features/admin/store/authStore";
 
-// const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
-const API_BASE = "http://localhost:5000";// Замените на ваш production URL при необходимости
+// const API_BASE = "http://localhost:5000";// Замените на ваш production URL при необходимости
 
 // Создаем экземпляр axios с базовыми настройками
 const apiClient = axios.create({
