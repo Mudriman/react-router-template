@@ -1,8 +1,7 @@
 import React from "react";
 import Card from "~/shared/UI/Card";
 import Section from "~/shared/UI/Section";
-import { useToken } from "../../shared/hooks/useToken";
-import { useNavigate } from "react-router";
+import { useAuth } from "~/shared/hooks/useAuth";
 
 const exerciseCards = [
   {
@@ -42,27 +41,21 @@ const exerciseCards = [
 const literatureLinks = [
   {
     text: "Понимание когнитивно-поведенческой терапии",
-    href: "https://mip-institute-ng8gxwz5x-ipe.vercel.app/journal/chto-takoe-kognitivno-povedencheskaya-terapiya-i-kak-ona-rabotaet",
+    href: "https://alter.ru/guide/kbt",
   },
   {
     text: "Преимущества осознанности в терапии",
-    href: "https://translated.turbopages.org/proxy_u/en-ru.ru.a7c7d067-67bf675f-9b081d08-74722d776562/https/www.verywellmind.com/mindfulness-based-cognitive-therapy-1067396",
+    href: "https://vc.ru/id2741259/997162-primenenie-osoznannosti-v-praktike-psihoterapevtov-i-psihologov",
   },
   {
     text: "Эффективные методы управления стрессом",
-    href: "https://psy.su/pubs/10830/?ysclid=m7majwcieh469255703",
+    href: "https://vc.ru/id1920739/710086-10-effektivnyh-sposobov-upravleniya-stressom-i-trevogoi",
   },
 ];
 
 const InteractiveExercises: React.FC = () => {
-  
-  const { removeToken } = useToken();
-  const navigate = useNavigate();
 
-   const handleLogout = () => {
-    removeToken();
-    navigate("/login");
-  };
+  const { logout } = useAuth();
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-2">
@@ -95,8 +88,8 @@ const InteractiveExercises: React.FC = () => {
           ))}
         </ul>
       </Section>
-       <button
-        onClick={handleLogout}
+      <button
+        onClick={logout}
         className="bottom-4 left-16 flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-xl shadow-md transition-colors duration-200"
       >
         Выйти

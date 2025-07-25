@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router";
 import { authAPI } from "../../api/api";
-import { useToken } from "../../shared/hooks/useToken";
+import type { AuthResponse } from "../../shared/types";
+import { useAuthStore } from "../admin/store/authStore";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -14,7 +15,8 @@ export default function Register() {
   const [message, setMessage] = useState("");
   const [passwordShown, setPasswordShown] = useState(false);
   const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
-  const { setToken } = useToken();
+
+  const setUser = useAuthStore((state) => state.setUser);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -47,18 +49,21 @@ export default function Register() {
         throw new Error("Пароль должен содержать минимум 6 символов");
       }
 
-      const token = await authAPI.register(formData.email, formData.password);
-      setToken(token);
-      
+      const res: AuthResponse = await authAPI.register(formData.email, formData.password);
+      setUser(res.user);
+
       setStatus("success");
       setMessage("Регистрация прошла успешно! Вы будете перенаправлены...");
-      
-      setTimeout(() => navigate("/prototype"), 1500);
+
+      setTimeout(() => {
+        navigate(res.user.role === "ADMIN" ? "/admin" : "/prototype");
+      }, 1500);
+
     } catch (err) {
       setStatus("error");
       setMessage(
-        err instanceof Error 
-          ? err.message 
+        err instanceof Error
+          ? err.message
           : "Ошибка при регистрации. Возможно, пользователь уже существует"
       );
     }
@@ -68,13 +73,12 @@ export default function Register() {
     <main className="container mx-auto max-w-md p-4">
       <div className="bg-white rounded-lg shadow-md p-6">
         <h1 className="text-2xl font-bold mb-6 text-center">Регистрация</h1>
-        
+
         {status !== "idle" && (
-          <div className={`mb-4 p-3 rounded ${
-            status === "success" 
-              ? "bg-green-100 border border-green-400 text-green-700" 
+          <div className={`mb-4 p-3 rounded ${status === "success"
+              ? "bg-green-100 border border-green-400 text-green-700"
               : "bg-red-100 border border-red-400 text-red-700"
-          }`}>
+            }`}>
             {message}
           </div>
         )}
@@ -174,9 +178,8 @@ export default function Register() {
           <button
             type="submit"
             disabled={status === "loading"}
-            className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 ${
-              status === "loading" ? "opacity-70 cursor-not-allowed" : ""
-            }`}
+            className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 ${status === "loading" ? "opacity-70 cursor-not-allowed" : ""
+              }`}
             aria-busy={status === "loading"}
           >
             {status === "loading" ? (

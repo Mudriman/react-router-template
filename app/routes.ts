@@ -15,7 +15,9 @@ export default
     route("forgot_password", "features/auth/ForgotPassword.tsx"),
     route("reset_password", "features/auth/ResetPassword.tsx"),
 
-
+    route("admin", "features/admin/AdminLayout.tsx", [
+      index("features/admin/UserManagement.tsx"),
+    ]),
 
     route("prototype", "features/routes/ProtectedLayout.tsx", [
       index("features/exercises/InteractiveExercises.tsx"),

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { testAPI } from "~/api/api";
 import { tests } from "~/features/test/model/testConfig";
 import TestQuestions from "~/features/test/ui/TestQuestions";
 import TestResults from "~/features/test/ui/TestResults";
@@ -32,13 +33,18 @@ const PTSDTest: React.FC = () => {
     return currentTest.calculateScore(answers[activeTest]);
   };
 
-  const handleSubmit = () => {
-    if (answers[activeTest].every((a) => a >= 0 || (activeTest === "bassDarki" && a >= 1))) {
+  const handleSubmit = async () => {
+  if (answers[activeTest].every(a => a >= 0)) {
+    const score = calculateScore();
+    
+    try {
+      await testAPI.saveTestResult(activeTest, score);
       setSubmitted({ ...submitted, [activeTest]: true });
-    } else {
-      alert("Пожалуйста, ответьте на все вопросы!");
+    } catch (err) {
+      alert("Не удалось сохранить результаты");
     }
-  };
+  }
+};
 
   const handleRetry = () => {
     setSubmitted({ ...submitted, [activeTest]: false });

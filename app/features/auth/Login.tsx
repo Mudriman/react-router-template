@@ -1,26 +1,23 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { authAPI } from '../../api/api';
-import { useToken } from "../../shared/hooks/useToken";
+import { useAuthStore } from "../admin/store/authStore";
+import type { AuthResponse } from "../../shared/types";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    email: "",
-    password: ""
-  });
+  const setUser = useAuthStore((state) => state.setUser);
+  const setToken = useAuthStore((state) => state.setToken);
+
+  const [rememberMe, setRememberMe] = useState(false);
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
 
-  const { setToken } = useToken();
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -33,13 +30,21 @@ export default function Login() {
         throw new Error("Все поля обязательны для заполнения");
       }
 
-      const token = await authAPI.login(formData.email, formData.password);
-      setToken(token);
-      navigate("/prototype");
+      const res: AuthResponse = await authAPI.login(formData.email, formData.password);
+
+      setToken(res.token);
+      setUser(res.user);
+
+      const storage = rememberMe ? localStorage : sessionStorage;
+      storage.setItem("token", res.token);
+      storage.setItem("user", JSON.stringify(res.user));
+
+      navigate(res.user.role === 'ADMIN' ? "/admin" : "/prototype");
+
     } catch (err) {
       setError(
-        err instanceof Error 
-          ? err.message 
+        err instanceof Error
+          ? err.message
           : "Произошла ошибка при авторизации. Попробуйте снова"
       );
     } finally {
@@ -47,11 +52,12 @@ export default function Login() {
     }
   };
 
+
   return (
     <main className="container mx-auto max-w-md p-4">
       <div className="bg-white rounded-lg shadow-md p-6">
         <h1 className="text-2xl font-bold mb-6 text-center">Вход в систему</h1>
-        
+
         {error && (
           <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
             {error}
@@ -59,6 +65,7 @@ export default function Login() {
         )}
 
         <form onSubmit={handleLogin} className="space-y-4">
+          {/* Поля ввода email и пароля остаются без изменений */}
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
               Email
@@ -73,6 +80,7 @@ export default function Login() {
               onChange={handleChange}
               autoComplete="username"
               disabled={isLoading}
+              required
             />
           </div>
 
@@ -91,6 +99,7 @@ export default function Login() {
                 onChange={handleChange}
                 autoComplete="current-password"
                 disabled={isLoading}
+                required
               />
               <button
                 type="button"
@@ -119,6 +128,8 @@ export default function Login() {
                 name="remember-me"
                 type="checkbox"
                 className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
                 disabled={isLoading}
               />
               <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">

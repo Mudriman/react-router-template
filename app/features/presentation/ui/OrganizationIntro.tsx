@@ -5,11 +5,6 @@ export default function OrganizationIntro() {
     window.open(process.env.VITE_BRATSTVO_WEBSITE_URL, "_blank");
   };
 
-  console.log({
-  viteapiUrl: process.env.VITE_API_URL,
-  tgChannel: process.env.NEXT_PUBLIC_TG_CHANNEL
-});
-
   return (
     <section className="px-4 mb-6 text-gray-900 from-gray-50 to-gray-100 sm:px-6 lg:px-8">
       <motion.div
@@ -34,7 +29,7 @@ export default function OrganizationIntro() {
             </h2>
             <p className="text-sm leading-relaxed text-gray-700 sm:text-base">
               <strong className="text-gray-900">
-                Северское районное отделение Всероссийской организации ветеранов «Боевое братство»
+                Северское районное отделение Краснодарского краевого отделения Всероссийской общественной организации ветеранов «Боевое братство»
               </strong> — общественная организация, инициировавшая проект «Шаг к жизни» 
               и играющая ключевую роль в его реализации и развитии.
             </p>

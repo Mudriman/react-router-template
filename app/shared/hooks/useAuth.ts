@@ -1,26 +1,52 @@
-import { useState } from 'react';
+// features/auth/hooks/useAuth.ts
 import { useNavigate } from 'react-router';
+import { useAuthStore } from '../../features/admin/store/authStore';
 import { authAPI } from '../../api/api';
-import { useToken } from './useToken';
 
 export const useAuth = () => {
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [message, setMessage] = useState('');
   const navigate = useNavigate();
-  const { setToken } = useToken();
+
+  const {
+    user,
+    token,
+    isLoading,
+    error,
+    setUser,
+    setToken,
+    setLoading,
+    setError,
+    clearError,
+  } = useAuthStore();
 
   const login = async (email: string, password: string) => {
-    setStatus('loading');
+    setLoading(true);
+    clearError();
+
     try {
-      const token = await authAPI.login(email, password);
+      const { token, user } = await authAPI.login(email, password);
       setToken(token);
-      setStatus('success');
-      navigate('/prototype');
+      setUser(user);
+      navigate(user.role === 'ADMIN' ? '/admin' : '/prototype');
     } catch (err) {
-      setStatus('error');
-      setMessage(err instanceof Error ? err.message : 'Ошибка авторизации');
+      setError(err instanceof Error ? err.message : 'Ошибка авторизации');
+    } finally {
+      setLoading(false);
     }
   };
 
-  return { status, message, login };
+  const logout = () => {
+    setToken(null);
+    setUser(null);
+    localStorage.removeItem("auth-storage");
+    navigate('/login');
+  };
+
+  return {
+    user,
+    token,
+    isLoading,
+    error,
+    login,
+    logout,
+  };
 };

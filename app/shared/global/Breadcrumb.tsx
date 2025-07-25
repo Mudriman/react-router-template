@@ -16,6 +16,7 @@ const breadcrumbMap: Record<string, string> = {
   register:"Авторизация",
   forgot_password:"Восстановление пароля",
   reset_password:"Смена пароля",
+  admin: "Панель администратора"
 };
 
 const Breadcrumbs = () => {

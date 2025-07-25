@@ -1,11 +1,9 @@
+// features/routes/ProtectedLayout.tsx
 import { Outlet, Navigate } from "react-router";
-import { useToken } from "../../shared/hooks/useToken";
+import { useAuthStore } from "../admin/store/authStore";
 
 export default function ProtectedLayout() {
-  const { getToken, removeToken } = useToken();
-
-  const token = getToken();
-
+  const { token } = useAuthStore();
 
   if (!token) {
     return <Navigate to="/login" replace />;
