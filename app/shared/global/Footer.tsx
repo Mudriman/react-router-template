@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
         </NavLink>{" "}
         |{" "}
         <NavLink 
-          to="/feedback" 
+          to="prototype/feedback" 
           className="hover:underline"
         >
           Обратная связь

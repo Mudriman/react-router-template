@@ -45,7 +45,7 @@ export default function FeedbackPage() {
         throw new Error("Ошибка отправки");
       }
 
-      navigate("/feedback-success"); // Перенаправляем на страницу успеха
+      navigate("/prototype/feedback-success"); // Перенаправляем на страницу успеха
     } catch (err: any) {
       setError(err.message || "Произошла ошибка");
     } finally {

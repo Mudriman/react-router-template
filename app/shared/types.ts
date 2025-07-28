@@ -2,8 +2,6 @@ export interface User {
   id: string;          // Добавляем id, который приходит с бекенда
   email: string;
   role: 'USER' | 'ADMIN';
-  createdAt?: string;   // Опционально, если приходит с бекенда
-  updatedAt?: string;   // Опционально
   tests: Test[];
 }
 
@@ -22,4 +20,9 @@ interface Test {
   type: string;
   score: number;
   createdAt: string;
+}
+
+export interface ApiError {
+  error: string;
+  details: string;
 }

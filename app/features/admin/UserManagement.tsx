@@ -8,65 +8,135 @@ import { useUserManagement } from "./hooks/useUserManagement";
 import { ActionsCell } from "./ui/ActionsCell";
 import { RoleCell } from "./ui/RoleCell";
 import { TestStatusCell } from "./ui/TestStatusCell";
+import { StatCard } from "./ui/StatCard";
+import { ClipboardDocumentCheckIcon, ExclamationCircleIcon, ShieldCheckIcon, UsersIcon } from "@heroicons/react/24/solid";
+import { Button } from "./ui/Button";
+import { ExportButton } from "./ui/ExportButton";
+import { RecentActivity } from "./ui/RecentActivity";
+import { SystemStatus } from "./ui/SystemStatus";
 
 export default function UserManagement() {
   const {
     users,
     error,
     loading,
+    initialLoad,
     pagination,
     setPagination,
     handleDelete,
-    handleMakeAdmin
+    handleMakeAdmin,
+    fetchUsers,
   } = useUserManagement();
 
-  if (loading) return (
-    <Loader />
-  );
+  if (loading && !initialLoad) return <Loader />;
 
-  if (error) return <ErrorAlert error={error} />;
+  if (error && !initialLoad) return <ErrorAlert error={error} />;
 
   const userColumns: Column<User>[] = [
-  { header: 'Email', accessor: 'email' },
-  { header: 'Роль', accessor: (user: User) => <RoleCell role={user.role} /> },
-  {
-    header: 'Пройденные тесты',
-    accessor: (user: User) => <TestStatusCell tests={user.tests} />,
-    className: 'min-w-[250px]'
-  },
-  {
-    header: 'Действия',
-    accessor: (user: User) => (
-      <ActionsCell user={user} onMakeAdmin={handleMakeAdmin} onDelete={handleDelete} />
-    ),
-    align: 'right',
-  },
-];
-
+    { header: "Email", accessor: "email" },
+    { header: "Роль", accessor: (user: User) => <RoleCell role={user.role} /> },
+    {
+      header: "Пройденные тесты",
+      accessor: (user: User) => <TestStatusCell tests={user.tests} />,
+      className: "min-w-[250px]",
+    },
+    {
+      header: "Действия",
+      accessor: (user: User) => (
+        <ActionsCell user={user} onMakeAdmin={handleMakeAdmin} onDelete={handleDelete} />
+      ),
+      align: "right",
+    },
+  ];
+ 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-8">
-      <div className="sm:flex sm:items-center">
-        <div className="sm:flex-auto">
-          <h1 className="text-2xl font-semibold text-gray-900">Управление пользователями</h1>
-          <p className="mt-2 text-sm text-gray-700">
-            Всего пользователей: {pagination.total}
-          </p>
-        </div>
+    <div className="px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      {/* Статистика */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <StatCard
+          title="Всего пользователей"
+          value={initialLoad ? pagination.total : "—"}
+          icon={<UsersIcon className="h-6 w-6" />}
+        />
+        <StatCard
+          title="Администраторов"
+          value={initialLoad ? users.filter((u) => u.role === "ADMIN").length : "—"}
+          icon={<ShieldCheckIcon className="h-6 w-6" />}
+        />
+        <StatCard
+          title="Пользователи с тестами"
+          value={initialLoad ? users.filter((u) => u.tests.length > 0).length : "—"}
+          icon={<ClipboardDocumentCheckIcon className="h-6 w-6" />}
+        />
       </div>
 
-      <div className="mt-8 flow-root">
-        <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-            <DataTable
-              data={users}
-              columns={userColumns}
-              keyField="id"
-              emptyMessage="Пользователи не найдены"
-            />
+      {/* Панель управления */}
+      <div className="bg-white shadow rounded-lg p-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h1 className="text-2xl font-semibold text-gray-900">Управление пользователями</h1>
+            <p className="mt-2 text-sm text-gray-700">
+              {initialLoad
+                ? `Загружено ${users.length} из ${pagination.total}`
+                : "Нажмите 'Загрузить' для получения данных"}
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Button onClick={fetchUsers} loading={loading} variant="primary">
+              {initialLoad ? "Обновить данные" : "Загрузить пользователей"}
+            </Button>
+            {initialLoad && (
+              <ExportButton data={users} disabled={users.length === 0} />
+            )}
           </div>
         </div>
+
+        {error && (
+          <div className="mt-6 bg-red-50 border-l-4 border-red-400 p-4">
+            <div className="flex">
+              <div className="text-red-400">
+                <ExclamationCircleIcon className="h-5 w-5" />
+              </div>
+              <div className="ml-3">
+                <p className="text-sm text-red-700">{error}</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {initialLoad && (
+          <>
+            <div className="mt-6">
+              <DataTable
+                data={users}
+                columns={userColumns}
+                keyField="id"
+                emptyMessage="Пользователи не найдены"
+                loading={loading}
+              />
+            </div>
+
+            {pagination.total > 0 && (
+              <div className="mt-6">
+                <Pagination
+                  pagination={pagination}
+                  setPagination={(newPagination) => {
+                    setPagination(newPagination);
+                    fetchUsers();
+                  }}
+                />
+              </div>
+            )}
+          </>
+        )}
       </div>
-      <Pagination pagination={pagination} setPagination={setPagination} />
+
+      {/* Дополнительные информационные блоки */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <RecentActivity />
+        <SystemStatus />
+      </div>
     </div>
   );
 }

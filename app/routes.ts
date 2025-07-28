@@ -4,8 +4,6 @@ export default
   [
     index("features/presentation/Presentation.tsx"),
 
-    route("feedback", "features/feedback/Feedback.tsx"),
-    route("feedback-success", "features/feedback/FeedbackSuccess.tsx"),
     route("comand", "features/team/Team.tsx"),
     route("privacy", "features/legal/PrivacyPolicy.tsx"),
     route("ptsd_info", "features/ptsd/PTSDInfo.tsx"),
@@ -25,6 +23,8 @@ export default
       route("meditation", "features/exercises/Meditation.tsx"),
       route("mindfulex", "features/exercises/MindfulnessExercise.tsx"),
       route("breathing", "features/exercises/BreathingExercise.tsx"),
+      route("feedback", "features/feedback/Feedback.tsx"),
+      route("feedback-success", "features/feedback/FeedbackSuccess.tsx"), 
     ]),
 
 

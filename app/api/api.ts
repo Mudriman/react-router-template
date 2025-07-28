@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { User } from '../shared/types';
+import type { User, ApiError, AuthResponse } from '../shared/types';
 import { useAuthStore } from "~/features/admin/store/authStore";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
@@ -43,20 +43,22 @@ apiClient.interceptors.response.use(
 );
 
 export const authAPI = {
-  register: async (email: string, password: string): Promise<{ token: string; user: { email: string; role: 'USER' | 'ADMIN' } }> => {
-    const response = await apiClient.post("/auth/register", {
-      email,
-      password,
-    });
-    return response.data; // Теперь возвращаем и токен, и данные пользователя
+  register: async (email: string, password: string): Promise<AuthResponse> => {
+    try {
+      const response = await apiClient.post("/auth/register", { email, password });
+      return response.data;
+    } catch (err: any) {
+      throw err.response?.data as ApiError; // Бросаем ошибку в формате сервера
+    }
   },
 
-  login: async (email: string, password: string): Promise<{ token: string; user: { email: string; role: 'USER' | 'ADMIN' } }> => {
-    const response = await apiClient.post("/auth/login", {
-      email,
-      password,
-    });
-    return response.data;
+  login: async (email: string, password: string): Promise<AuthResponse> => {
+    try {
+      const response = await apiClient.post("/auth/login", { email, password });
+      return response.data;
+    } catch (err: any) {
+      throw err.response?.data as ApiError; // Бросаем ошибку в формате сервера
+    }
   },
 
   requestPasswordReset: async (email: string): Promise<void> => {

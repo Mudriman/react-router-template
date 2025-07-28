@@ -1,12 +1,13 @@
 // hooks/useUserManagement.ts
 import { useState, useEffect, useCallback } from "react";
 import { adminAPI } from "../../../api/api";
-import type { User } from "../../../shared/types";
+import type { User, ApiError } from "../../../shared/types";
 
 export function useUserManagement() {
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [initialLoad, setInitialLoad] = useState(false);
   const [pagination, setPagination] = useState({
     page: 1,
     limit: 10,
@@ -17,24 +18,28 @@ export function useUserManagement() {
     try {
       setLoading(true);
       const data = await adminAPI.getAllUsers(pagination.page, pagination.limit);
-      
+
       if (!data) throw new Error("Не получили данные от сервера");
-      
+
       const usersArray = Array.isArray(data.users) ? data.users : [];
       setUsers(usersArray);
-      setPagination(prev => ({
+      setPagination((prev) => ({
         ...prev,
-        total: typeof data.total === 'number' ? data.total : 0
+        total: typeof data.total === "number" ? data.total : 0,
       }));
       setError(null);
+      setInitialLoad(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Ошибка загрузки");
+      const errorMessage =
+        err instanceof Error
+          ? err.message
+          : (err as ApiError).details || "Ошибка загрузки пользователей";
+      setError(errorMessage);
       setUsers([]);
     } finally {
       setLoading(false);
     }
   }, [pagination.page, pagination.limit]);
-
   const handleDelete = async (id: string) => {
   if (!window.confirm("Вы уверены, что хотите удалить этого пользователя?")) return;
 
@@ -86,6 +91,7 @@ export function useUserManagement() {
     users,
     error,
     loading,
+    initialLoad,
     pagination,
     setPagination,
     handleDelete,
