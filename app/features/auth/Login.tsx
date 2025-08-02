@@ -10,6 +10,7 @@ export default function Login() {
     formData,
     error,
     isLoading,
+    fieldErrors,
     rememberMe,
     setRememberMe,
     handleChange,
@@ -43,7 +44,7 @@ export default function Login() {
           placeholder="Введите ваш email"
           label="Email"
           disabled={isLoading}
-          error={error}
+          error={fieldErrors["email"]}
         />
 
         <FormInput
@@ -55,7 +56,7 @@ export default function Login() {
           label="Пароль"
           disabled={isLoading}
           showPasswordToggle
-          error={error}
+          error={fieldErrors["password"]}
         />
 
         <div className="flex items-center justify-between">

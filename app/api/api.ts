@@ -4,7 +4,7 @@ import { useAuthStore } from "~/features/admin/store/authStore";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
-// const API_BASE = "http://localhost:5000";// Замените на ваш production URL при необходимости
+// const API_BASE = "http://localhost:5000";
 
 // Создаем экземпляр axios с базовыми настройками
 const apiClient = axios.create({
@@ -28,17 +28,26 @@ apiClient.interceptors.request.use((config) => {
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
+    const apiError: ApiError = {
+      error: "Произошла ошибка",
+      errors: [],
+    };
+
     if (error.response) {
-      // Обрабатываем стандартные ошибки HTTP
-      const message = error.response.data?.error || "Произошла ошибка";
-      return Promise.reject(new Error(message));
+      // Ошибка HTTP
+      const { data, status } = error.response;
+      apiError.error = data?.error || `Ошибка сервера (${status})`;
+      apiError.errors = data?.errors || [];
+      apiError.code = status.toString();
     } else if (error.request) {
       // Ошибка соединения
-      return Promise.reject(new Error("Нет ответа от сервера"));
+      apiError.error = "Нет ответа от сервера";
     } else {
       // Другие ошибки
-      return Promise.reject(error);
+      apiError.error = error.message || "Неизвестная ошибка";
     }
+
+    return Promise.reject(apiError);
   }
 );
 
@@ -48,7 +57,7 @@ export const authAPI = {
       const response = await apiClient.post("/auth/register", { email, password });
       return response.data;
     } catch (err: any) {
-      throw err.response?.data as ApiError; // Бросаем ошибку в формате сервера
+      throw err as ApiError; // Ошибка уже в формате ApiError
     }
   },
 
@@ -57,7 +66,7 @@ export const authAPI = {
       const response = await apiClient.post("/auth/login", { email, password });
       return response.data;
     } catch (err: any) {
-      throw err.response?.data as ApiError; // Бросаем ошибку в формате сервера
+      throw err as ApiError; // Бросаем ошибку в формате сервера
     }
   },
 
@@ -68,6 +77,15 @@ export const authAPI = {
   resetPassword: async (token: string, newPassword: string): Promise<void> => {
     await apiClient.post("/auth/reset-password", { token, newPassword });
   },
+
+  feedback: async (email: string, message: string): Promise<void> => {
+  try {
+    await apiClient.post("/feedback", { email, message });
+  } catch (err: any) {
+    throw err as ApiError;
+  }
+},
+
 };
 
 export const adminAPI = {

@@ -1,79 +1,24 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router";
-import { authAPI } from "../../api/api";
-import type { AuthResponse } from "../../shared/types";
-import { useAuthStore } from "../admin/store/authStore";
-import { AuthFormContainer } from "./ui/AuthFormContainer";
-import { FormInput } from "./ui/FormInput";
-import { SubmitButton } from "./ui/SubmitButton";
+import { authAPI } from '~/api/api';
+import { useAuthForm } from './hooks/useAuthForm';
+import { FormInput } from './ui/FormInput';
+import { SubmitButton } from './ui/SubmitButton';
+import { Link } from 'react-router';
+import { AuthFormContainer } from './ui/AuthFormContainer';
+import { useState } from 'react';
 
-export default function Register() {
-  const navigate = useNavigate();
-  const setUser = useAuthStore((state) => state.setUser);
-  const setToken = useAuthStore((state) => state.setToken);
 
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    confirmPassword: ""
-  });
-  const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+export default function RegisterForm() {
+ const {
+    formData,
+    error,
+    fieldErrors,
+    isLoading,
+    handleChange,
+    handleSubmit,
+  } = useAuthForm(authAPI.register, true);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    if (error) setError(null);
-  };
-
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    setIsLoading(true);
-
-    try {
-      // Валидация
-      if (!formData.email || !formData.password || !formData.confirmPassword) {
-        throw new Error("Все поля обязательны для заполнения");
-      }
-
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-        throw new Error("Введите корректный email");
-      }
-
-      if (formData.password !== formData.confirmPassword) {
-        throw new Error("Пароли не совпадают");
-      }
-
-      if (formData.password.length < 6) {
-        throw new Error("Пароль должен содержать минимум 6 символов");
-      }
-
-      const res = await authAPI.register(formData.email, formData.password);
-      
-      setToken(res.token);
-      setUser(res.user);
-
-      // Успешная регистрация
-      setError("Регистрация прошла успешно! Вы будете перенаправлены...");
-
-      setTimeout(() => {
-        navigate(res.user.role === "ADMIN" ? "/admin" : "/prototype");
-      }, 1500);
-
-    } catch (err) {
-      setError(
-        err instanceof Error
-          ? err.message
-          : "Ошибка при регистрации. Возможно, пользователь уже существует"
-      );
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  return (
-    <AuthFormContainer
+ return (
+ <AuthFormContainer
       title="Регистрация"
       footer={
         <>
@@ -85,16 +30,12 @@ export default function Register() {
       }
     >
       {error && (
-        <div className={`mb-4 p-3 rounded ${
-          error.includes("успешно") 
-            ? "bg-green-100 border border-green-400 text-green-700" 
-            : "bg-red-100 border border-red-400 text-red-700"
-        }`}>
+        <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
           {error}
         </div>
       )}
 
-      <form onSubmit={handleRegister} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <FormInput
           type="email"
           name="email"
@@ -103,6 +44,7 @@ export default function Register() {
           placeholder="Введите ваш email"
           label="Email"
           disabled={isLoading}
+          error={fieldErrors["email"]}
         />
 
         <FormInput
@@ -114,6 +56,7 @@ export default function Register() {
           label="Пароль"
           disabled={isLoading}
           showPasswordToggle
+          error={fieldErrors["password"]}
         />
 
         <FormInput
@@ -125,10 +68,11 @@ export default function Register() {
           label="Подтверждение пароля"
           disabled={isLoading}
           showPasswordToggle
+          error={fieldErrors["confirmPassword"]}
         />
 
         <SubmitButton
-          isLoading={isLoading} 
+          isLoading={isLoading}
           label="Зарегистрироваться"
           loadingLabel="Регистрация..."
         />

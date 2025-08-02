@@ -1,4 +1,4 @@
-import { NavLink } from "react-router"; // Предполагаю, что ты используешь react-router-dom
+import { NavLink } from "react-router";
 
 interface BackLinkProps {
   to: string;

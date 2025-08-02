@@ -22,7 +22,14 @@ interface Test {
   createdAt: string;
 }
 
+export interface FieldError {
+  field: string;
+  message: string;
+}
+
 export interface ApiError {
   error: string;
-  details: string;
+  errors?: FieldError[];
+  code?: string;
 }
+

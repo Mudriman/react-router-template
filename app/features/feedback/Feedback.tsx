@@ -1,7 +1,8 @@
 import { useState } from "react";
 import BackLink from "~/shared/UI/BackLink";
 import { useNavigate } from "react-router";
-
+import type { ApiError } from "~/shared/types";
+import { authAPI } from "~/api/api";
 
 export interface FeedbackForm {
   name: string;
@@ -9,45 +10,58 @@ export interface FeedbackForm {
   message: string;
 }
 
-export interface ApiFeedbackRequest {
-  email: string;
-  message: string;
-}
-
 export default function FeedbackPage() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string>("");
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+    setError("");
+    setFieldErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
+    setFieldErrors({});
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/feedback`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: form.email,
-          message: `${form.name} пишет: ${form.message}` // Добавляем имя в сообщение
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Ошибка отправки");
+      // Проверяем обязательные поля
+      if (!form.email.trim() || !form.message.trim()) {
+        setFieldErrors({
+          email: !form.email.trim() ? "Email обязателен" : "",
+          message: !form.message.trim() ? "Сообщение обязательно" : "",
+        });
+        return;
       }
 
-      navigate("/prototype/feedback-success"); // Перенаправляем на страницу успеха
-    } catch (err: any) {
-      setError(err.message || "Произошла ошибка");
+      // Используем apiClient вместо fetch
+      await authAPI.feedback(form.email, `${form.name ? `${form.name} пишет: ` : ""}${form.message}`);
+
+      navigate("/prototype/feedback-success");
+    } catch (err: unknown) {
+      const apiErr = err as ApiError;
+      let errorMessage = apiErr.error || "Произошла ошибка";
+
+      if (apiErr.errors && apiErr.errors.length > 0) {
+        const formatted = Object.fromEntries(apiErr.errors.map(e => [e.field, e.message]));
+        setFieldErrors(formatted);
+      } else {
+        if (apiErr.code === "401") {
+          errorMessage = "Не авторизован. Пожалуйста, войдите в систему.";
+          navigate("/login"); // Перенаправляем на логин
+        } else if (apiErr.code === "429") {
+          errorMessage = apiErr.error || "Превышен лимит запросов. Попробуйте позже.";
+        } else if (apiErr.code === "500") {
+          errorMessage = "Ошибка сервера, попробуйте позже.";
+        }
+        setError(errorMessage);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -78,7 +92,11 @@ export default function FeedbackPage() {
                   value={form.name}
                   onChange={handleChange}
                   className="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                  disabled={isLoading}
                 />
+                {fieldErrors.name && (
+                  <div className="mt-1 text-red-300 text-sm">{fieldErrors.name}</div>
+                )}
               </div>
 
               <div>
@@ -89,7 +107,11 @@ export default function FeedbackPage() {
                   value={form.email}
                   onChange={handleChange}
                   className="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                  disabled={isLoading}
                 />
+                {fieldErrors.email && (
+                  <div className="mt-1 text-red-300 text-sm">{fieldErrors.email}</div>
+                )}
               </div>
 
               <div>
@@ -99,14 +121,17 @@ export default function FeedbackPage() {
                   rows={4}
                   value={form.message}
                   onChange={handleChange}
-                  className="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-y"
+                  className="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y"
+                  disabled={isLoading}
                 />
+                {fieldErrors.message && (
+                  <div className="mt-1 text-red-300 text-sm">{fieldErrors.message}</div>
+                )}
               </div>
               <button
                 type="submit"
                 disabled={isLoading}
-                className={`w-full p-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors ${isLoading ? "opacity-70 cursor-not-allowed" : ""
-                  }`}
+                className={`w-full p-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors ${isLoading ? "opacity-70 cursor-not-allowed" : ""}`}
               >
                 {isLoading ? "Отправка..." : "Отправить"}
               </button>
