@@ -86,6 +86,18 @@ export const authAPI = {
   }
 },
 
+  logout:async (token: string) => {
+    const response = await fetch('/auth/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) throw new Error('Logout failed');
+    return response.json();
+  },
+
 };
 
 export const adminAPI = {

@@ -5,7 +5,6 @@ import { authAPI } from '../../api/api';
 
 export const useAuth = () => {
   const navigate = useNavigate();
-
   const {
     user,
     token,
@@ -21,7 +20,6 @@ export const useAuth = () => {
   const login = async (email: string, password: string) => {
     setLoading(true);
     clearError();
-
     try {
       const { token, user } = await authAPI.login(email, password);
       setToken(token);
@@ -34,11 +32,21 @@ export const useAuth = () => {
     }
   };
 
-  const logout = () => {
-    setToken(null);
-    setUser(null);
-    localStorage.removeItem("auth-storage");
-    navigate('/login');
+  const logout = async () => {
+    setLoading(true);
+    try {
+      if (token) {
+        await authAPI.logout(token); // Предполагается, что authAPI.logout делает запрос к /auth/logout
+      }
+      setToken(null);
+      setUser(null);
+      localStorage.removeItem('auth-storage');
+      navigate('/login');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Ошибка выхода');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return {
