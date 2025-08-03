@@ -34,12 +34,12 @@ export default function ProjectIntro({ ptsdInfoPath }: ProjectIntroProps) {
         >
           📄 Скачать презентацию (PDF)
         </a>
-        <a
-          href="/prototype/feedback"
+        <Link
+          to="/prototype/feedback"
           className="bg-blue-600 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg font-semibold text-base sm:text-lg hover:bg-blue-700 transition shadow-lg w-full sm:w-auto"
         >
           💙 Поддержать проект
-        </a>
+        </Link>
       </div>
     </section>
   );

@@ -33,13 +33,13 @@ const TestQuestions: React.FC<TestQuestionsProps> = ({ test, answers, onAnswer }
                     : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600"
                 }`}
               >
-                {value === 1
+                {value === 0
                   ? "Никогда"
-                  : value === 2
+                  : value === 1
                   ? "Редко"
-                  : value === 3
+                  : value === 2
                   ? "Иногда"
-                  : value === 4
+                  : value === 3
                   ? "Часто"
                   : "Очень часто"}
               </button>
