@@ -8,6 +8,7 @@ import BackLink from "~/shared/UI/BackLink";
 
 const PTSDTest: React.FC = () => {
   const [activeTest, setActiveTest] = useState("ptsd");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [answers, setAnswers] = useState<{ [key: string]: number[] }>({
     ptsd: Array(tests.ptsd.questions.length).fill(-1),
     taylor: Array(tests.taylor.questions.length).fill(-1),
@@ -34,17 +35,20 @@ const PTSDTest: React.FC = () => {
   };
 
   const handleSubmit = async () => {
-  if (answers[activeTest].every(a => a >= 0)) {
-    const score = calculateScore();
-    
-    try {
-      await testAPI.saveTestResult(activeTest, score);
-      setSubmitted({ ...submitted, [activeTest]: true });
-    } catch (err) {
-      alert("Не удалось сохранить результаты");
+    if (isSubmitting) return;
+    if (answers[activeTest].every(a => a >= 0)) {
+      const score = calculateScore();
+
+      try {
+        await testAPI.saveTestResult(activeTest, score);
+        setSubmitted({ ...submitted, [activeTest]: true });
+      } catch (err) {
+        alert("Не удалось сохранить результаты");
+      } finally {
+        setIsSubmitting(false);
+      }
     }
-  }
-};
+  };
 
   const handleRetry = () => {
     setSubmitted({ ...submitted, [activeTest]: false });
@@ -86,6 +90,7 @@ const PTSDTest: React.FC = () => {
               <div className="mt-10">
                 <button
                   onClick={handleSubmit}
+                  disabled={isSubmitting}
                   className="w-full bg-blue-500 dark:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium shadow-md hover:bg-blue-600 dark:hover:bg-blue-700 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   Завершить тест
