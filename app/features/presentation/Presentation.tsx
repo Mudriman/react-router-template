@@ -2,10 +2,10 @@ import React from "react";
 import ProjectIntro from "~/features/presentation/ui/ProjectIntro";
 import HowItWorks from "~/features/presentation/ui/HowItWorks";
 import NewsSlider from "~/features/presentation/ui/NewsSlider";
-import PTSDStats from "~/features/presentation/ui/PtsdStats";
 import ProjectFeatures from "~/features/presentation/ui/ProjectFeatures";
 import FAQ from "~/shared/global/FAQ";
 import OrganizationIntro from "./ui/OrganizationIntro";
+import ProjectStats from "./ui/ProjectStats";
 
 const PresentationPage: React.FC = () => {
 
@@ -15,7 +15,7 @@ const PresentationPage: React.FC = () => {
             {/* Заголовок и описание проекта */}
             <ProjectIntro ptsdInfoPath="/ptsd_info"/>
             <OrganizationIntro/>
-            <PTSDStats />
+            <ProjectStats />
             <NewsSlider />
             <HowItWorks/>
             <ProjectFeatures/>

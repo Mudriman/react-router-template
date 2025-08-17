@@ -15,7 +15,7 @@ export interface UserListResponse {
   totalCount?: number;  // Для пагинации
 }
 
-interface Test {
+export interface Test {
   id: number;
   type: string;
   score: number;
