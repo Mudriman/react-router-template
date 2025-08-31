@@ -1,6 +1,6 @@
 import React from "react";
-import { NavLink, useLocation } from "react-router";
-import { useAuthStore } from "../../features/admin/store/authStore"; // путь подгони под проект
+import { NavLink } from "react-router";
+import { useAuthStore } from "../../features/admin/store/authStore";
 
 interface NavLinksProps {
   onClick?: () => void;
@@ -14,7 +14,6 @@ const menuItems = [
 ];
 
 const NavLinks: React.FC<NavLinksProps> = ({ onClick, className }) => {
-  const location = useLocation();
   const user = useAuthStore((state) => state.user);
 
   return (

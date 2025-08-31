@@ -19,6 +19,7 @@ export default
 
     route("prototype", "features/routes/ProtectedLayout.tsx", [
       index("features/exercises/InteractiveExercises.tsx"),
+      route("profile", "features/profile/Profile.tsx"),
       route("test", "features/ptsd/PTSDTest.tsx"),
       route("meditation", "features/exercises/Meditation.tsx"),
       route("mindfulex", "features/exercises/MindfulnessExercise.tsx"),
@@ -27,6 +28,8 @@ export default
       route("feedback-success", "features/feedback/FeedbackSuccess.tsx"), 
     ]),
 
+    
+    route("*", "features/routes/NotFound.tsx"),
 
 
   ] satisfies RouteConfig;

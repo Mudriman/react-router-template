@@ -16,7 +16,7 @@ const apiClient = axios.create({
 
 // Добавляем интерсептор для авторизации
 apiClient.interceptors.request.use((config) => {
-  const token = useAuthStore.getState().token; // <<< вместо localStorage
+  const token = useAuthStore.getState().token;
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -57,7 +57,7 @@ export const authAPI = {
       const response = await apiClient.post("/auth/register", { email, password });
       return response.data;
     } catch (err: any) {
-      throw err as ApiError; // Ошибка уже в формате ApiError
+      throw err as ApiError; 
     }
   },
 
@@ -66,7 +66,7 @@ export const authAPI = {
       const response = await apiClient.post("/auth/login", { email, password });
       return response.data;
     } catch (err: any) {
-      throw err as ApiError; // Бросаем ошибку в формате сервера
+      throw err as ApiError;
     }
   },
 
@@ -109,7 +109,7 @@ export const adminAPI = {
     return response.data;
   },
   
-  getStats: async () => { // Новый метод
+  getStats: async () => {
     const response = await apiClient.get('/admin/stats');
     return response.data;
   },

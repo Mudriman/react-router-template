@@ -1,9 +1,9 @@
 import React from "react";
 import Card from "~/shared/UI/Card";
 import Section from "~/shared/UI/Section";
-import { useAuth } from "~/shared/hooks/useAuth";
 import { ResourcesGrid } from "./ResourceCard";
 import { AcademicCapIcon, BookOpenIcon, ClipboardDocumentCheckIcon, HeartIcon, LightBulbIcon, ShieldCheckIcon, SparklesIcon } from "@heroicons/react/24/solid";
+import ProfileBar from "./ProfileBar";
 
 const exerciseCards = [
   {
@@ -45,10 +45,10 @@ const exerciseCards = [
 ];
 
 const InteractiveExercises: React.FC = () => {
-  const { logout } = useAuth();
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <ProfileBar/>
       <Section title="Интерактивные упражнения">
         {exerciseCards.map((card, index) => (
           <Card
@@ -68,13 +68,6 @@ const InteractiveExercises: React.FC = () => {
         <h1 className="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-800">Ресурсы о ПТСР</h1>
         <ResourcesGrid />
       </div>
-
-      <button
-        onClick={logout}
-        className="mt-6 flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-xl shadow-md transition-colors duration-200"
-      >
-        Выйти
-      </button>
     </div>
   );
 };

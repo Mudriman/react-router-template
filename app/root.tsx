@@ -13,6 +13,7 @@ import Navbar from "./shared/global/Navbar";
 import Breadcrumbs from "./shared/global/Breadcrumb";
 import BackToTop from "./shared/global/BackToTop";
 import Footer from "./shared/global/Footer";
+import AppInitializer from "./shared/global/AppInitializer";
 
 export const links: Route.LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -49,13 +50,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <div className="flex flex-col min-h-screen font-sans">
-        <Navbar />
-        <Breadcrumbs />
-        <main className="flex-grow">
-          <Outlet />
-        </main>
-        <BackToTop />
-        <Footer />    
+      <Navbar />
+      <Breadcrumbs />
+      <main className="flex-grow">
+        <Outlet />
+      </main>
+      <BackToTop />
+      <Footer />
     </div>
   );
 }
