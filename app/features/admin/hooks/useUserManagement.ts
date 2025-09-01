@@ -41,38 +41,38 @@ export function useUserManagement() {
     }
   }, [pagination.page, pagination.limit]);
   const handleDelete = async (id: string) => {
-  if (!window.confirm("Вы уверены, что хотите удалить этого пользователя?")) return;
+    if (!confirm("Вы уверены, что хотите удалить этого пользователя?")) return;
 
-  try {
-    await adminAPI.deleteUser(id);
+    try {
+      await adminAPI.deleteUser(id);
 
-    // Локальное обновление списка
-    const newUsers = users.filter(user => user.id !== id);
-    setUsers(newUsers);
+      // Локальное обновление списка
+      const newUsers = users.filter(user => user.id !== id);
+      setUsers(newUsers);
 
-    setPagination((prev) => {
-      const newTotal = prev.total - 1;
-      const maxPage = Math.ceil(newTotal / prev.limit); // Максимально возможная страница
+      setPagination((prev) => {
+        const newTotal = prev.total - 1;
+        const maxPage = Math.ceil(newTotal / prev.limit); // Максимально возможная страница
 
-      // Если текущая страница стала пустой и это не первая страница — переключаемся на предыдущую
-      const shouldDecreasePage = newUsers.length === 0 && prev.page > 1;
-      const newPage = shouldDecreasePage ? prev.page - 1 : Math.min(prev.page, maxPage);
+        // Если текущая страница стала пустой и это не первая страница — переключаемся на предыдущую
+        const shouldDecreasePage = newUsers.length === 0 && prev.page > 1;
+        const newPage = shouldDecreasePage ? prev.page - 1 : Math.min(prev.page, maxPage);
 
-      return {
-        ...prev,
-        page: newPage,
-        total: newTotal,
-      };
-    });
+        return {
+          ...prev,
+          page: newPage,
+          total: newTotal,
+        };
+      });
 
-    // Если страница изменилась — перезагружаем данные
-    if (users.length === 1 && pagination.page > 1) {
-      await fetchUsers();
+      // Если страница изменилась — перезагружаем данные
+      if (users.length === 1 && pagination.page > 1) {
+        await fetchUsers();
+      }
+    } catch (err) {
+      alert("Ошибка при удалении пользователя");
     }
-  } catch (err) {
-    alert("Ошибка при удалении пользователя");
-  }
-};
+  };
 
   const handleMakeAdmin = async (email: string) => {
     try {
@@ -84,25 +84,25 @@ export function useUserManagement() {
   };
 
   const handleDeleteTest = async (testId: string) => {
-  if (!window.confirm("Удалить этот тест?")) return;
-  
-  try {
-    const result = await adminAPI.deleteUserTest(testId);
-    if (result.success) {
-      // Обновляем UI
-      setUsers(prevUsers => 
-        prevUsers.map(user => ({
-          ...user,
-          tests: user.tests?.filter(test => test.id.toString() !== testId) || []
-        }))
-      );
-    } else {
-      alert(result.error);
+    if (!window.confirm("Удалить этот тест?")) return;
+
+    try {
+      const result = await adminAPI.deleteUserTest(testId);
+      if (result.success) {
+        // Обновляем UI
+        setUsers(prevUsers =>
+          prevUsers.map(user => ({
+            ...user,
+            tests: user.tests?.filter(test => test.id.toString() !== testId) || []
+          }))
+        );
+      } else {
+        alert(result.error);
+      }
+    } catch (error) {
+      alert("Ошибка при удалении теста");
     }
-  } catch (error) {
-    alert("Ошибка при удалении теста");
-  }
-};
+  };
 
   useEffect(() => {
     fetchUsers();
