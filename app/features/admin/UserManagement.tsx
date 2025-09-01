@@ -30,37 +30,37 @@ export default function UserManagement() {
     handleDeleteTest
   } = useUserManagement();
 
-  if (loading && !initialLoad) return <Loader />;
+  // if (loading && !initialLoad) return <Loader />;
 
-  if (error && !initialLoad) return <ErrorAlert error={error} />;
+  // if (error && !initialLoad) return <ErrorAlert error={error} />;
 
-  const userColumns: Column<User>[] = [
-    { header: "Email", accessor: "email" },
-    { header: "Роль", accessor: (user: User) => <RoleCell role={user.role} /> },
-    {
-      header: "Пройденные тесты",
-      accessor: (user: User) => (
-        <TestStatusCell
-          userId={user.id}
-          tests={user.tests?.map(t => ({ ...t, id: String(t.id) }))}
-          onDeleteTest={handleDeleteTest} // ← Теперь передаем только ID
-        />
-      ),
-      className: "min-w-[100px]",
-    },
-    {
-      header: "Действия",
-      accessor: (user: User) => (
-        <ActionsCell user={user} onMakeAdmin={handleMakeAdmin} onDelete={handleDelete} />
-      ),
-      align: "right",
-    },
-  ];
+  // const userColumns: Column<User>[] = [
+  //   { header: "Email", accessor: "email" },
+  //   { header: "Роль", accessor: (user: User) => <RoleCell role={user.role} /> },
+  //   {
+  //     header: "Пройденные тесты",
+  //     accessor: (user: User) => (
+  //       <TestStatusCell
+  //         userId={user.id}
+  //         tests={user.tests?.map(t => ({ ...t, id: String(t.id) }))}
+  //         onDeleteTest={handleDeleteTest} // ← Теперь передаем только ID
+  //       />
+  //     ),
+  //     className: "min-w-[100px]",
+  //   },
+  //   {
+  //     header: "Действия",
+  //     accessor: (user: User) => (
+  //       <ActionsCell user={user} onMakeAdmin={handleMakeAdmin} onDelete={handleDelete} />
+  //     ),
+  //     align: "right",
+  //   },
+  // ];
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-      {/* Статистика */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      Статистика
+      {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         <StatCard
           title="Всего пользователей"
           value={initialLoad ? pagination.total : "—"}
@@ -76,10 +76,10 @@ export default function UserManagement() {
           value={initialLoad ? users.filter((u) => u.tests.length > 0).length : "—"}
           icon={<ClipboardDocumentCheckIcon className="h-6 w-6" />}
         />
-      </div>
+      </div> */}
 
       {/* Панель управления */}
-      <div className="bg-white shadow rounded-lg p-6">
+      {/* <div className="bg-white shadow rounded-lg p-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h1 className="text-2xl font-semibold text-gray-900">Управление пользователями</h1>
@@ -98,9 +98,9 @@ export default function UserManagement() {
               <ExportButton data={users} disabled={users.length === 0} />
             )}
           </div>
-        </div>
+        </div> */}
 
-        {error && (
+        {/* {error && (
           <div className="mt-6 bg-red-50 border-l-4 border-red-400 p-4">
             <div className="flex">
               <div className="text-red-400">
@@ -111,9 +111,9 @@ export default function UserManagement() {
               </div>
             </div>
           </div>
-        )}
+        )} */}
 
-        {initialLoad && (
+        {/* {initialLoad && (
           <>
             <div className="mt-6">
               <DataTable
@@ -138,13 +138,13 @@ export default function UserManagement() {
             )}
           </>
         )}
-      </div>
+      </div> */}
 
       {/* Дополнительные информационные блоки */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <RecentActivity />
         <SystemStatus />
-      </div>
+      </div> */}
     </div>
   );
 }
