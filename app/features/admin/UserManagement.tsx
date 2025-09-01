@@ -30,37 +30,37 @@ export default function UserManagement() {
     handleDeleteTest
   } = useUserManagement();
 
-  // if (loading && !initialLoad) return <Loader />;
+  if (loading && !initialLoad) return <Loader />;
 
-  // if (error && !initialLoad) return <ErrorAlert error={error} />;
+  if (error && !initialLoad) return <ErrorAlert error={error} />;
 
-  // const userColumns: Column<User>[] = [
-  //   { header: "Email", accessor: "email" },
-  //   { header: "Роль", accessor: (user: User) => <RoleCell role={user.role} /> },
-  //   {
-  //     header: "Пройденные тесты",
-  //     accessor: (user: User) => (
-  //       <TestStatusCell
-  //         userId={user.id}
-  //         tests={user.tests?.map(t => ({ ...t, id: String(t.id) }))}
-  //         onDeleteTest={handleDeleteTest} // ← Теперь передаем только ID
-  //       />
-  //     ),
-  //     className: "min-w-[100px]",
-  //   },
-  //   {
-  //     header: "Действия",
-  //     accessor: (user: User) => (
-  //       <ActionsCell user={user} onMakeAdmin={handleMakeAdmin} onDelete={handleDelete} />
-  //     ),
-  //     align: "right",
-  //   },
-  // ];
+  const userColumns: Column<User>[] = [
+    { header: "Email", accessor: "email" },
+    { header: "Роль", accessor: (user: User) => <RoleCell role={user.role} /> },
+    {
+      header: "Пройденные тесты",
+      accessor: (user: User) => (
+        <TestStatusCell
+          userId={user.id}
+          tests={user.tests?.map(t => ({ ...t, id: String(t.id) }))}
+          onDeleteTest={handleDeleteTest} // ← Теперь передаем только ID
+        />
+      ),
+      className: "min-w-[100px]",
+    },
+    {
+      header: "Действия",
+      accessor: (user: User) => (
+        <ActionsCell user={user} onMakeAdmin={handleMakeAdmin} onDelete={handleDelete} />
+      ),
+      align: "right",
+    },
+  ];
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       Статистика
-      {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         <StatCard
           title="Всего пользователей"
           value={initialLoad ? pagination.total : "—"}
@@ -76,7 +76,7 @@ export default function UserManagement() {
           value={initialLoad ? users.filter((u) => u.tests.length > 0).length : "—"}
           icon={<ClipboardDocumentCheckIcon className="h-6 w-6" />}
         />
-      </div> */}
+      </div>
 
       {/* Панель управления */}
       {/* <div className="bg-white shadow rounded-lg p-6">
@@ -141,10 +141,10 @@ export default function UserManagement() {
       </div> */}
 
       {/* Дополнительные информационные блоки */}
-      {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <RecentActivity />
         <SystemStatus />
-      </div> */}
+      </div>
     </div>
   );
 }
