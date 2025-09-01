@@ -146,6 +146,21 @@ export const adminAPI = {
 
 };
 
+export const testAPI = {
+  saveTestResult: async (testType: string, score: number) => {
+    const response = await apiClient.post("/profile/tests", { 
+      type: testType, 
+      score 
+    });
+    return response.data;
+  },
+
+  getMyTests: async () => {
+    const response = await apiClient.get("/profile/tests");
+    return response.data;
+  }
+};
+
 export const profileAPI = {
   getMyTests: async () => {
     const response = await apiClient.get("/profile/tests");
