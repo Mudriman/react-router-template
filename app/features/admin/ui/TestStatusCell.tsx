@@ -1,5 +1,4 @@
 import { X } from "lucide-react";
-import { useCallback } from "react";
 
 interface TestStatusCellProps {
   userId: string;
@@ -9,7 +8,7 @@ interface TestStatusCellProps {
     score: number;
     createdAt: string;
   }>;
-  onDeleteTest: (testId: string) => void;
+  onDeleteTest: (testId: string) => void; // ← Только ID теста!
 }
 
 export const TestStatusCell = ({ userId, tests = [], onDeleteTest }: TestStatusCellProps) => {
@@ -19,14 +18,6 @@ export const TestStatusCell = ({ userId, tests = [], onDeleteTest }: TestStatusC
     beck: "Бека",
     bassDarki: "Басса-Дарки",
   };
-
-  if (!tests || tests.length === 0) {
-    return <span className="text-gray-400">Нет тестов</span>;
-  }
-
-  const handleDelete = useCallback((testId: string) => {
-    onDeleteTest(testId);
-  }, [onDeleteTest]);
 
   if (!tests || tests.length === 0) {
     return <span className="text-gray-400">Нет тестов</span>;
@@ -46,13 +37,13 @@ export const TestStatusCell = ({ userId, tests = [], onDeleteTest }: TestStatusC
             </span>
           </div>
 
-          <button
-           onClick={() => handleDelete(test.id)} // ← Передаем только ID теста!
+          {/* <button
+            onClick={() => onDeleteTest(test.id)} // ← Передаем только ID теста!
             className="text-gray-400 hover:text-red-600 transition"
             title="Удалить тест"
           >
             <X size={14} />
-          </button>
+          </button> */}
         </div>
       ))}
     </div>
