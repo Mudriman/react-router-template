@@ -1,5 +1,3 @@
-import { X } from "lucide-react";
-
 interface TestStatusCellProps {
   userId: string;
   tests?: Array<{
@@ -37,13 +35,13 @@ export const TestStatusCell = ({ userId, tests = [], onDeleteTest }: TestStatusC
             </span>
           </div>
 
-          {/* <button
+          <button
             onClick={() => onDeleteTest(test.id)} // ← Передаем только ID теста!
             className="text-gray-400 hover:text-red-600 transition"
             title="Удалить тест"
           >
-            <X size={14} />
-          </button> */}
+            х
+          </button>
         </div>
       ))}
     </div>
