@@ -1,6 +1,19 @@
 [build]
-command = "react-router build"
-publish = "build/client"
+  command = "npm run build"
+  publish = "build/client"
 
 [dev]
-command = "react-router dev"
+  command = "npm run dev"
+  port = 5173
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
