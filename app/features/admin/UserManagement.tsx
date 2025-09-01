@@ -79,7 +79,7 @@ export default function UserManagement() {
       </div>
 
       {/* Панель управления */}
-      {/* <div className="bg-white shadow rounded-lg p-6">
+      <div className="bg-white shadow rounded-lg p-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h1 className="text-2xl font-semibold text-gray-900">Управление пользователями</h1>
@@ -98,9 +98,9 @@ export default function UserManagement() {
               <ExportButton data={users} disabled={users.length === 0} />
             )}
           </div>
-        </div> */}
+        </div>
 
-        {/* {error && (
+        {error && (
           <div className="mt-6 bg-red-50 border-l-4 border-red-400 p-4">
             <div className="flex">
               <div className="text-red-400">
@@ -111,11 +111,11 @@ export default function UserManagement() {
               </div>
             </div>
           </div>
-        )} */}
+        )}
 
-        {/* {initialLoad && (
+        {initialLoad && (
           <>
-            <div className="mt-6">
+            {/* <div className="mt-6">
               <DataTable
                 data={users}
                 columns={userColumns}
@@ -123,7 +123,7 @@ export default function UserManagement() {
                 emptyMessage="Пользователи не найдены"
                 loading={loading}
               />
-            </div>
+            </div> */}
 
             {pagination.total > 0 && (
               <div className="mt-6">
@@ -138,7 +138,7 @@ export default function UserManagement() {
             )}
           </>
         )}
-      </div> */}
+      </div>
 
       {/* Дополнительные информационные блоки */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
