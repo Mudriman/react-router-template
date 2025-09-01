@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { User, ApiError, AuthResponse } from '../shared/types';
+import type { User, ApiError, AuthResponse, Test } from '../shared/types';
 import { useAuthStore } from "~/features/admin/store/authStore";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
@@ -57,7 +57,7 @@ export const authAPI = {
       const response = await apiClient.post("/auth/register", { email, password });
       return response.data;
     } catch (err: any) {
-      throw err as ApiError; 
+      throw err as ApiError;
     }
   },
 
@@ -79,12 +79,12 @@ export const authAPI = {
   },
 
   feedback: async (email: string, message: string): Promise<void> => {
-  try {
-    await apiClient.post("/feedback", { email, message });
-  } catch (err: any) {
-    throw err as ApiError;
-  }
-},
+    try {
+      await apiClient.post("/feedback", { email, message });
+    } catch (err: any) {
+      throw err as ApiError;
+    }
+  },
 
   logout: async (): Promise<void> => {
     try {
@@ -108,7 +108,7 @@ export const adminAPI = {
     const response = await apiClient.post("/admin/make-admin", { email });
     return response.data;
   },
-  
+
   getStats: async () => {
     const response = await apiClient.get('/admin/stats');
     return response.data;
@@ -123,21 +123,27 @@ export const adminAPI = {
     }
   },
 
-};
-
-export const testAPI = {
-  saveTestResult: async (testType: string, score: number) => {
-    const response = await apiClient.post("/tests/results", { 
-      type: testType, 
-      score 
-    });
-    return response.data;
+  getUserTests: async (userId: string): Promise<Test[]> => {
+    try {
+      const response = await apiClient.get(`/admin/user/${userId}/tests`);
+      return response.data;
+    } catch (err: any) {
+      throw new Error(err.response?.data?.error || "Ошибка при загрузке тестов");
+    }
   },
 
-  getMyTests: async () => {
-    const response = await apiClient.get("/tests/results");
-    return response.data;
+  deleteUserTest: async (testId: string): Promise<{ success: boolean; error?: string }> => {
+    try {
+      const response = await apiClient.delete(`/admin/test/${testId}`);
+      return { success: true };
+    } catch (err: any) {
+      return {
+        success: false,
+        error: err.response?.data?.error || "Ошибка при удалении теста"
+      };
+    }
   }
+
 };
 
 export const profileAPI = {

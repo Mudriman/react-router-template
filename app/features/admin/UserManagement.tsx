@@ -15,6 +15,7 @@ import { ExportButton } from "./ui/ExportButton";
 import { RecentActivity } from "./ui/RecentActivity";
 import { SystemStatus } from "./ui/SystemStatus";
 
+
 export default function UserManagement() {
   const {
     users,
@@ -26,6 +27,7 @@ export default function UserManagement() {
     handleDelete,
     handleMakeAdmin,
     fetchUsers,
+    handleDeleteTest
   } = useUserManagement();
 
   if (loading && !initialLoad) return <Loader />;
@@ -37,8 +39,14 @@ export default function UserManagement() {
     { header: "Роль", accessor: (user: User) => <RoleCell role={user.role} /> },
     {
       header: "Пройденные тесты",
-      accessor: (user: User) => <TestStatusCell tests={user.tests} />,
-      className: "min-w-[250px]",
+      accessor: (user: User) => (
+        <TestStatusCell
+          userId={user.id}
+          tests={user.tests?.map(t => ({ ...t, id: String(t.id) }))}
+          onDeleteTest={handleDeleteTest} // ← Теперь передаем только ID
+        />
+      ),
+      className: "min-w-[100px]",
     },
     {
       header: "Действия",
@@ -48,7 +56,7 @@ export default function UserManagement() {
       align: "right",
     },
   ];
- 
+
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       {/* Статистика */}

@@ -33,7 +33,7 @@ export function useUserManagement() {
       const errorMessage =
         err instanceof Error
           ? err.message
-          : (err as ApiError).details || "Ошибка загрузки пользователей";
+          : "Ошибка загрузки пользователей";
       setError(errorMessage);
       setUsers([]);
     } finally {
@@ -83,6 +83,27 @@ export function useUserManagement() {
     }
   };
 
+  const handleDeleteTest = async (testId: string) => {
+  if (!window.confirm("Удалить этот тест?")) return;
+  
+  try {
+    const result = await adminAPI.deleteUserTest(testId);
+    if (result.success) {
+      // Обновляем UI
+      setUsers(prevUsers => 
+        prevUsers.map(user => ({
+          ...user,
+          tests: user.tests?.filter(test => test.id.toString() !== testId) || []
+        }))
+      );
+    } else {
+      alert(result.error);
+    }
+  } catch (error) {
+    alert("Ошибка при удалении теста");
+  }
+};
+
   useEffect(() => {
     fetchUsers();
   }, [fetchUsers]);
@@ -96,6 +117,7 @@ export function useUserManagement() {
     setPagination,
     handleDelete,
     handleMakeAdmin,
-    fetchUsers
+    fetchUsers,
+    handleDeleteTest
   };
 }

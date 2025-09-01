@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { X } from "lucide-react";
 
 export type Column<T> = {
   header: string;
@@ -13,7 +14,7 @@ type DataTableProps<T> = {
   keyField: keyof T;
   emptyMessage?: string;
   className?: string;
-  loading?: boolean; // Добавляем пропс loading
+  loading?: boolean;
 };
 
 export function DataTable<T>({

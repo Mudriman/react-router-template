@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuthStore } from "../admin/store/authStore";
 import type { Test } from "~/shared/types";
-import { profileAPI, testAPI } from "~/api/api";
+import { profileAPI } from "~/api/api";
 
 export default function Profile() {
   const { user, logout } = useAuthStore();
