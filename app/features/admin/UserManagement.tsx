@@ -37,17 +37,17 @@ export default function UserManagement() {
   const userColumns: Column<User>[] = [
     { header: "Email", accessor: "email" },
     { header: "Роль", accessor: (user: User) => <RoleCell role={user.role} /> },
-    {
-      header: "Пройденные тесты",
-      accessor: (user: User) => (
-        <TestStatusCell
-          userId={user.id}
-          tests={user.tests?.map(t => ({ ...t, id: String(t.id) }))}
-          onDeleteTest={handleDeleteTest} // ← Теперь передаем только ID
-        />
-      ),
-      className: "min-w-[100px]",
-    },
+    // {
+    //   header: "Пройденные тесты",
+    //   accessor: (user: User) => (
+    //     <TestStatusCell
+    //       userId={user.id}
+    //       tests={user.tests?.map(t => ({ ...t, id: String(t.id) }))}
+    //       onDeleteTest={handleDeleteTest} // ← Теперь передаем только ID
+    //     />
+    //   ),
+    //   className: "min-w-[100px]",
+    // },
     {
       header: "Действия",
       accessor: (user: User) => (
@@ -115,7 +115,7 @@ export default function UserManagement() {
 
         {initialLoad && (
           <>
-            {/* <div className="mt-6">
+            <div className="mt-6">
               <DataTable
                 data={users}
                 columns={userColumns}
@@ -123,7 +123,7 @@ export default function UserManagement() {
                 emptyMessage="Пользователи не найдены"
                 loading={loading}
               />
-            </div> */}
+            </div>
 
             {pagination.total > 0 && (
               <div className="mt-6">
