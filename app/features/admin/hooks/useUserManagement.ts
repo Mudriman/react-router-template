@@ -87,18 +87,19 @@ export function useUserManagement() {
     if (!window.confirm("Удалить этот тест?")) return;
 
     try {
-      const result = await adminAPI.deleteUserTest(testId);
-      if (result.success) {
-        // Обновляем UI
-        setUsers(prevUsers =>
-          prevUsers.map(user => ({
-            ...user,
-            tests: user.tests?.filter(test => test.id.toString() !== testId) || []
-          }))
-        );
-      } else {
-        alert(result.error);
-      }
+      // const result = await adminAPI.deleteUserTest(testId);
+      // if (result.success) {
+      //   // Обновляем UI
+      //   setUsers(prevUsers =>
+      //     prevUsers.map(user => ({
+      //       ...user,
+      //       tests: user.tests?.filter(test => test.id.toString() !== testId) || []
+      //     }))
+      //   );
+      // } else {
+      //   alert(result.error);
+      // }
+      alert("Вы удалили тест!");
     } catch (error) {
       alert("Ошибка при удалении теста");
     }

@@ -15,9 +15,7 @@ export default function Profile() {
   if (user) {
     profileAPI.getMyTests()
       .then((data) => {
-        console.log("Тесты с сервера:", data);
         setTests(data);
-        console.log("Тесты с сервера:", data);
       })
       .catch(console.error);
   }

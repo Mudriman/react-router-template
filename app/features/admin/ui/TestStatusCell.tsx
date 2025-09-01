@@ -8,7 +8,7 @@ interface TestStatusCellProps {
     score: number;
     createdAt: string;
   }>;
-  onDeleteTest: (testId: string) => void; // ← Только ID теста!
+  onDeleteTest: (testId: string) => void;
 }
 
 export const TestStatusCell = ({ userId, tests = [], onDeleteTest }: TestStatusCellProps) => {
