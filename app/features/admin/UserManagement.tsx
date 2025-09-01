@@ -37,17 +37,17 @@ export default function UserManagement() {
   const userColumns: Column<User>[] = [
     { header: "Email", accessor: "email" },
     { header: "Роль", accessor: (user: User) => <RoleCell role={user.role} /> },
-    // {
-    //   header: "Пройденные тесты",
-    //   accessor: (user: User) => (
-    //     <TestStatusCell
-    //       userId={user.id}
-    //       tests={user.tests?.map(t => ({ ...t, id: String(t.id) }))}
-    //       onDeleteTest={handleDeleteTest} // ← Теперь передаем только ID
-    //     />
-    //   ),
-    //   className: "min-w-[100px]",
-    // },
+    {
+      header: "Пройденные тесты",
+      accessor: (user: User) => (
+        <TestStatusCell
+          userId={user.id}
+          tests={user.tests?.map(t => ({ ...t, id: String(t.id) }))}
+          onDeleteTest={handleDeleteTest} // ← Теперь передаем только ID
+        />
+      ),
+      className: "min-w-[100px]",
+    },
     {
       header: "Действия",
       accessor: (user: User) => (

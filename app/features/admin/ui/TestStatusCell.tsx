@@ -1,4 +1,5 @@
 import { X } from "lucide-react";
+import { useCallback } from "react";
 
 interface TestStatusCellProps {
   userId: string;
@@ -23,6 +24,14 @@ export const TestStatusCell = ({ userId, tests = [], onDeleteTest }: TestStatusC
     return <span className="text-gray-400">Нет тестов</span>;
   }
 
+  const handleDelete = useCallback((testId: string) => {
+    onDeleteTest(testId);
+  }, [onDeleteTest]);
+
+  if (!tests || tests.length === 0) {
+    return <span className="text-gray-400">Нет тестов</span>;
+  }
+
   return (
     <div className="flex flex-col gap-1">
       {tests.map((test) => (
@@ -38,7 +47,7 @@ export const TestStatusCell = ({ userId, tests = [], onDeleteTest }: TestStatusC
           </div>
 
           <button
-            onClick={() => onDeleteTest(test.id)} // ← Передаем только ID теста!
+           onClick={() => handleDelete(test.id)} // ← Передаем только ID теста!
             className="text-gray-400 hover:text-red-600 transition"
             title="Удалить тест"
           >
